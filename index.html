@@ -3,99 +3,756 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>도쿄 문화 - Tokyo Culture</title>
+    <title>일본어 배우기 - Japanese Learning</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
+    <!-- Navigation -->
+    <nav class="navbar">
         <div class="container">
-            <h1>🗼 도쿄 문화 소개</h1>
-            <p class="subtitle">Tokyo Culture Guide</p>
+            <div class="nav-brand">日本語</div>
+            <div class="nav-links">
+                <a href="#dashboard">대시보드</a>
+                <a href="#lessons">학습</a>
+                <a href="#practice">연습</a>
+                <a href="#culture">문화</a>
+            </div>
         </div>
-    </header>
+    </nav>
 
-    <main class="container">
-        <section class="intro">
-            <h2>도쿄에 오신 것을 환영합니다</h2>
-            <p>도쿄는 전통과 현대가 조화를 이루는 매력적인 도시입니다. 고대 사찰과 초현대식 건물이 공존하며, 독특한 문화 경험을 제공합니다.</p>
-        </section>
-
-        <section class="culture-grid">
-            <div class="culture-card">
-                <div class="card-icon">🍜</div>
-                <h3>음식 문화</h3>
-                <p>라멘, 초밥, 텐동 등 세계적으로 유명한 일본 요리를 맛볼 수 있습니다. 미슐랭 스타 레스토랑부터 작은 이자카야까지 다양한 음식 문화가 있습니다.</p>
-            </div>
-
-            <div class="culture-card">
-                <div class="card-icon">⛩️</div>
-                <h3>전통과 역사</h3>
-                <p>센소지 사원, 메이지 신궁 등 역사적인 명소들이 도시 곳곳에 자리하고 있습니다. 에도 시대의 문화와 전통이 현대에도 살아 숨쉬고 있습니다.</p>
-            </div>
-
-            <div class="culture-card">
-                <div class="card-icon">🎌</div>
-                <h3>축제와 행사</h3>
-                <p>벚꽃 축제, 불꽃놀이, 전통 마츠리 등 일년 내내 다채로운 행사가 열립니다. 각 계절마다 특별한 문화 경험을 할 수 있습니다.</p>
-            </div>
-
-            <div class="culture-card">
-                <div class="card-icon">🏙️</div>
-                <h3>현대 문화</h3>
-                <p>아키하바라의 애니메이션 문화, 하라주쿠의 패션, 시부야의 활기찬 분위기 등 현대 일본 문화의 중심지입니다.</p>
-            </div>
-
-            <div class="culture-card">
-                <div class="card-icon">🎨</div>
-                <h3>예술과 공연</h3>
-                <p>전통 가부키 극장부터 현대 미술관까지, 다양한 예술 형태를 감상할 수 있습니다. 우키요에와 현대 아트가 조화를 이룹니다.</p>
-            </div>
-
-            <div class="culture-card">
-                <div class="card-icon">🌸</div>
-                <h3>자연과 정원</h3>
-                <p>우에노 공원, 신주쿠교엔, 스미다 강변 등 도심 속 아름다운 자연 공간들이 많습니다. 특히 봄의 벚꽃은 절경입니다.</p>
-            </div>
-        </section>
-
-        <section class="highlights">
-            <h2>꼭 가봐야 할 명소</h2>
-            <div class="places">
-                <div class="place">
-                    <h4>🗼 도쿄 타워</h4>
-                    <p>도쿄의 상징적인 랜드마크</p>
-                </div>
-                <div class="place">
-                    <h4>🏯 황거</h4>
-                    <p>일본 왕실의 거주지</p>
-                </div>
-                <div class="place">
-                    <h4>🛍️ 긴자</h4>
-                    <p>고급 쇼핑과 식사의 중심지</p>
-                </div>
-                <div class="place">
-                    <h4>🎭 아사쿠사</h4>
-                    <p>전통 문화의 중심지</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="tips">
-            <h2>여행 팁</h2>
-            <ul>
-                <li>🚇 대중교통: JR 패스를 활용하면 경제적으로 이동할 수 있습니다</li>
-                <li>💴 결제: 현금 사용이 여전히 많으니 충분히 준비하세요</li>
-                <li>🙇 예절: 공공장소에서는 조용히, 에스컬레이터는 왼쪽에 서세요</li>
-                <li>📱 통신: Wi-Fi 포켓 라우터 대여를 추천합니다</li>
-                <li>🗣️ 언어: 기본적인 일본어 인사말을 배워두면 좋습니다</li>
-            </ul>
-        </section>
-    </main>
-
-    <footer>
+    <!-- Hero Section -->
+    <section class="hero">
         <div class="container">
-            <p>&copy; 2024 Tokyo Culture Guide | 도쿄 문화 소개</p>
+            <h1>일본어를 배워보세요</h1>
+            <p class="hero-subtitle">히라가나부터 일상 회화까지, 체계적인 학습 시스템</p>
+            <div class="streak-display">
+                <span class="streak-number">7</span>
+                <span class="streak-label">일 연속 학습중!</span>
+            </div>
         </div>
-    </footer>
+    </section>
+
+    <!-- Dashboard -->
+    <section id="dashboard" class="dashboard">
+        <div class="container">
+            <h2>학습 현황</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">📚</div>
+                    <div class="stat-number">156</div>
+                    <div class="stat-label">학습한 단어</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">✅</div>
+                    <div class="stat-number">24</div>
+                    <div class="stat-label">완료한 레슨</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">⏱️</div>
+                    <div class="stat-number">12.5</div>
+                    <div class="stat-label">학습 시간 (시간)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🎯</div>
+                    <div class="stat-number">85%</div>
+                    <div class="stat-label">정확도</div>
+                </div>
+            </div>
+
+            <div class="daily-goal">
+                <h3>오늘의 목표</h3>
+                <div class="goal-progress">
+                    <div class="goal-item">
+                        <span>단어 10개 학습</span>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 70%"></div>
+                        </div>
+                        <span class="progress-text">7/10</span>
+                    </div>
+                    <div class="goal-item">
+                        <span>레슨 2개 완료</span>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 50%"></div>
+                        </div>
+                        <span class="progress-text">1/2</span>
+                    </div>
+                    <div class="goal-item">
+                        <span>퀴즈 1개 통과</span>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                        <span class="progress-text">0/1</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lessons Section -->
+    <section id="lessons" class="lessons">
+        <div class="container">
+            <h2>학습 코스</h2>
+
+            <!-- Hiragana & Katakana -->
+            <div class="lesson-category">
+                <h3>기초 문자</h3>
+                <div class="lesson-grid">
+                    <div class="lesson-card" onclick="openHiraganaChart()">
+                        <div class="lesson-icon">あ</div>
+                        <h4>히라가나</h4>
+                        <p>일본어의 기본 문자 46자</p>
+                        <div class="lesson-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 85%"></div>
+                            </div>
+                            <span>85% 완료</span>
+                        </div>
+                    </div>
+                    <div class="lesson-card" onclick="openKatakanaChart()">
+                        <div class="lesson-icon">ア</div>
+                        <h4>가타카나</h4>
+                        <p>외래어 표기 문자 46자</p>
+                        <div class="lesson-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 60%"></div>
+                            </div>
+                            <span>60% 완료</span>
+                        </div>
+                    </div>
+                    <div class="lesson-card" onclick="openKanjiLessons()">
+                        <div class="lesson-icon">漢</div>
+                        <h4>한자 (JLPT N5)</h4>
+                        <p>기초 한자 100자</p>
+                        <div class="lesson-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 35%"></div>
+                            </div>
+                            <span>35% 완료</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vocabulary -->
+            <div class="lesson-category">
+                <h3>어휘 학습</h3>
+                <div class="lesson-grid">
+                    <div class="lesson-card" onclick="openVocabulary('beginner')">
+                        <div class="lesson-icon">📗</div>
+                        <h4>초급 어휘</h4>
+                        <p>일상생활 기초 단어</p>
+                        <span class="lesson-count">200 단어</span>
+                    </div>
+                    <div class="lesson-card" onclick="openVocabulary('intermediate')">
+                        <div class="lesson-icon">📘</div>
+                        <h4>중급 어휘</h4>
+                        <p>업무, 여행 관련 단어</p>
+                        <span class="lesson-count">500 단어</span>
+                    </div>
+                    <div class="lesson-card" onclick="openVocabulary('advanced')">
+                        <div class="lesson-icon">📙</div>
+                        <h4>고급 어휘</h4>
+                        <p>전문적인 주제 단어</p>
+                        <span class="lesson-count">800 단어</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grammar -->
+            <div class="lesson-category">
+                <h3>문법 학습</h3>
+                <div class="lesson-grid">
+                    <div class="lesson-card" onclick="openGrammar('particles')">
+                        <div class="lesson-icon">を</div>
+                        <h4>조사 (Particles)</h4>
+                        <p>は、が、を、に、で 등</p>
+                    </div>
+                    <div class="lesson-card" onclick="openGrammar('verbs')">
+                        <div class="lesson-icon">動</div>
+                        <h4>동사 활용</h4>
+                        <p>ます형, て형, た형</p>
+                    </div>
+                    <div class="lesson-card" onclick="openGrammar('adjectives')">
+                        <div class="lesson-icon">形</div>
+                        <h4>형용사</h4>
+                        <p>い형용사, な형용사</p>
+                    </div>
+                    <div class="lesson-card" onclick="openGrammar('sentences')">
+                        <div class="lesson-icon">文</div>
+                        <h4>문장 구조</h4>
+                        <p>기본 문형 연습</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Practice Section -->
+    <section id="practice" class="practice">
+        <div class="container">
+            <h2>실전 연습</h2>
+            <div class="practice-grid">
+                <div class="practice-card" onclick="openFlashcards()">
+                    <div class="practice-icon">🎴</div>
+                    <h4>플래시카드</h4>
+                    <p>단어와 한자를 카드로 암기</p>
+                    <button class="practice-btn">시작하기</button>
+                </div>
+                <div class="practice-card" onclick="openListening()">
+                    <div class="practice-icon">🎧</div>
+                    <h4>듣기 연습</h4>
+                    <p>원어민 발음 듣고 따라하기</p>
+                    <button class="practice-btn">시작하기</button>
+                </div>
+                <div class="practice-card" onclick="openReading()">
+                    <div class="practice-icon">📖</div>
+                    <h4>독해 연습</h4>
+                    <p>짧은 글과 대화문 읽기</p>
+                    <button class="practice-btn">시작하기</button>
+                </div>
+                <div class="practice-card" onclick="openWriting()">
+                    <div class="practice-icon">✍️</div>
+                    <h4>쓰기 연습</h4>
+                    <p>문자 획순 연습</p>
+                    <button class="practice-btn">시작하기</button>
+                </div>
+                <div class="practice-card" onclick="openQuiz()">
+                    <div class="practice-icon">🎯</div>
+                    <h4>퀴즈</h4>
+                    <p>레벨별 종합 테스트</p>
+                    <button class="practice-btn">시작하기</button>
+                </div>
+                <div class="practice-card" onclick="openConversation()">
+                    <div class="practice-icon">💬</div>
+                    <h4>회화 연습</h4>
+                    <p>상황별 대화 패턴</p>
+                    <button class="practice-btn">시작하기</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Culture Section -->
+    <section id="culture" class="culture">
+        <div class="container">
+            <h2>일본 문화</h2>
+            <div class="culture-grid">
+                <div class="culture-card">
+                    <img src="https://via.placeholder.com/400x250/F5F0E8/8B7355?text=日本料理" alt="일본 요리">
+                    <div class="culture-content">
+                        <h4>일본 요리</h4>
+                        <p>초밥, 라멘, 텐푸라 등 일본 음식 문화와 관련 표현 배우기</p>
+                    </div>
+                </div>
+                <div class="culture-card">
+                    <img src="https://via.placeholder.com/400x250/F5F0E8/8B7355?text=伝統" alt="전통">
+                    <div class="culture-content">
+                        <h4>전통 문화</h4>
+                        <p>다도, 서예, 기모노 등 일본의 전통 문화 이해하기</p>
+                    </div>
+                </div>
+                <div class="culture-card">
+                    <img src="https://via.placeholder.com/400x250/F5F0E8/8B7355?text=祭り" alt="축제">
+                    <div class="culture-content">
+                        <h4>축제와 명절</h4>
+                        <p>일본의 연중 행사와 축제 관련 어휘 학습</p>
+                    </div>
+                </div>
+                <div class="culture-card">
+                    <img src="https://via.placeholder.com/400x250/F5F0E8/8B7355?text=マナー" alt="예절">
+                    <div class="culture-content">
+                        <h4>일본 예절</h4>
+                        <p>인사, 식사, 대화 예절과 존댓말 표현</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hiragana Chart Modal -->
+    <div id="hiraganaModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('hiraganaModal')">&times;</span>
+            <h3>히라가나 표</h3>
+            <div class="kana-chart">
+                <div class="kana-row">
+                    <div class="kana-cell">
+                        <div class="kana-char">あ</div>
+                        <div class="kana-roma">a</div>
+                        <div class="kana-sound">아</div>
+                    </div>
+                    <div class="kana-cell">
+                        <div class="kana-char">い</div>
+                        <div class="kana-roma">i</div>
+                        <div class="kana-sound">이</div>
+                    </div>
+                    <div class="kana-cell">
+                        <div class="kana-char">う</div>
+                        <div class="kana-roma">u</div>
+                        <div class="kana-sound">우</div>
+                    </div>
+                    <div class="kana-cell">
+                        <div class="kana-char">え</div>
+                        <div class="kana-roma">e</div>
+                        <div class="kana-sound">에</div>
+                    </div>
+                    <div class="kana-cell">
+                        <div class="kana-char">お</div>
+                        <div class="kana-roma">o</div>
+                        <div class="kana-sound">오</div>
+                    </div>
+                </div>
+                <div class="kana-row">
+                    <div class="kana-cell">
+                        <div class="kana-char">か</div>
+                        <div class="kana-roma">ka</div>
+                        <div class="kana-sound">카</div>
+                    </div>
+                    <div class="kana-cell">
+                        <div class="kana-char">き</div>
+                        <div class="kana-roma">ki</div>
+                        <div class="kana-sound">키</div>
+                    </div>
+                    <div class="kana-cell">
+                        <div class="kana-char">く</div>
+                        <div class="kana-roma">ku</div>
+                        <div class="kana-sound">쿠</div>
+                    </div>
+                    <div class="kana-cell">
+                        <div class="kana-char">け</div>
+                        <div class="kana-roma">ke</div>
+                        <div class="kana-sound">케</div>
+                    </div>
+                    <div class="kana-cell">
+                        <div class="kana-char">こ</div>
+                        <div class="kana-roma">ko</div>
+                        <div class="kana-sound">코</div>
+                    </div>
+                </div>
+                <div class="kana-row">
+                    <div class="kana-cell">
+                        <div class="kana-char">さ</div>
+                        <div class="kana-roma">sa</div>
+                        <div class="kana-sound">사</div>
+                    </div>
+                    <div class="kana-cell">
+                        <div class="kana-char">し</div>
+                        <div class="kana-roma">shi</div>
+                        <div class="kana-sound">시</div>
+                    </div>
+                    <div class="kana-cell">
+                        <div class="kana-char">す</div>
+                        <div class="kana-roma">su</div>
+                        <div class="kana-sound">스</div>
+                    </div>
+                    <div class="kana-cell">
+                        <div class="kana-char">せ</div>
+                        <div class="kana-roma">se</div>
+                        <div class="kana-sound">세</div>
+                    </div>
+                    <div class="kana-cell">
+                        <div class="kana-char">そ</div>
+                        <div class="kana-roma">so</div>
+                        <div class="kana-sound">소</div>
+                    </div>
+                </div>
+                <div class="kana-row">
+                    <div class="kana-cell">
+                        <div class="kana-char">た</div>
+                        <div class="kana-roma">ta</div>
+                        <div class="kana-sound">타</div>
+                    </div>
+                    <div class="kana-cell">
+                        <div class="kana-char">ち</div>
+                        <div class="kana-roma">chi</div>
+                        <div class="kana-sound">치</div>
+                    </div>
+                    <div class="kana-cell">
+                        <div class="kana-char">つ</div>
+                        <div class="kana-roma">tsu</div>
+                        <div class="kana-sound">츠</div>
+                    </div>
+                    <div class="kana-cell">
+                        <div class="kana-char">て</div>
+                        <div class="kana-roma">te</div>
+                        <div class="kana-sound">테</div>
+                    </div>
+                    <div class="kana-cell">
+                        <div class="kana-char">と</div>
+                        <div class="kana-roma">to</div>
+                        <div class="kana-sound">토</div>
+                    </div>
+                </div>
+                <div class="kana-row">
+                    <div class="kana-cell">
+                        <div class="kana-char">な</div>
+                        <div class="kana-roma">na</div>
+                        <div class="kana-sound">나</div>
+                    </div>
+                    <div class="kana-cell">
+                        <div class="kana-char">に</div>
+                        <div class="kana-roma">ni</div>
+                        <div class="kana-sound">니</div>
+                    </div>
+                    <div class="kana-cell">
+                        <div class="kana-char">ぬ</div>
+                        <div class="kana-roma">nu</div>
+                        <div class="kana-sound">누</div>
+                    </div>
+                    <div class="kana-cell">
+                        <div class="kana-char">ね</div>
+                        <div class="kana-roma">ne</div>
+                        <div class="kana-sound">네</div>
+                    </div>
+                    <div class="kana-cell">
+                        <div class="kana-char">の</div>
+                        <div class="kana-roma">no</div>
+                        <div class="kana-sound">노</div>
+                    </div>
+                </div>
+                <div class="kana-row">
+                    <div class="kana-cell">
+                        <div class="kana-char">は</div>
+                        <div class="kana-roma">ha</div>
+                        <div class="kana-sound">하</div>
+                    </div>
+                    <div class="kana-cell">
+                        <div class="kana-char">ひ</div>
+                        <div class="kana-roma">hi</div>
+                        <div class="kana-sound">히</div>
+                    </div>
+                    <div class="kana-cell">
+                        <div class="kana-char">ふ</div>
+                        <div class="kana-roma">fu</div>
+                        <div class="kana-sound">후</div>
+                    </div>
+                    <div class="kana-cell">
+                        <div class="kana-char">へ</div>
+                        <div class="kana-roma">he</div>
+                        <div class="kana-sound">헤</div>
+                    </div>
+                    <div class="kana-cell">
+                        <div class="kana-char">ほ</div>
+                        <div class="kana-roma">ho</div>
+                        <div class="kana-sound">호</div>
+                    </div>
+                </div>
+                <div class="kana-row">
+                    <div class="kana-cell">
+                        <div class="kana-char">ま</div>
+                        <div class="kana-roma">ma</div>
+                        <div class="kana-sound">마</div>
+                    </div>
+                    <div class="kana-cell">
+                        <div class="kana-char">み</div>
+                        <div class="kana-roma">mi</div>
+                        <div class="kana-sound">미</div>
+                    </div>
+                    <div class="kana-cell">
+                        <div class="kana-char">む</div>
+                        <div class="kana-roma">mu</div>
+                        <div class="kana-sound">무</div>
+                    </div>
+                    <div class="kana-cell">
+                        <div class="kana-char">め</div>
+                        <div class="kana-roma">me</div>
+                        <div class="kana-sound">메</div>
+                    </div>
+                    <div class="kana-cell">
+                        <div class="kana-char">も</div>
+                        <div class="kana-roma">mo</div>
+                        <div class="kana-sound">모</div>
+                    </div>
+                </div>
+                <div class="kana-row">
+                    <div class="kana-cell">
+                        <div class="kana-char">や</div>
+                        <div class="kana-roma">ya</div>
+                        <div class="kana-sound">야</div>
+                    </div>
+                    <div class="kana-cell empty"></div>
+                    <div class="kana-cell">
+                        <div class="kana-char">ゆ</div>
+                        <div class="kana-roma">yu</div>
+                        <div class="kana-sound">유</div>
+                    </div>
+                    <div class="kana-cell empty"></div>
+                    <div class="kana-cell">
+                        <div class="kana-char">よ</div>
+                        <div class="kana-roma">yo</div>
+                        <div class="kana-sound">요</div>
+                    </div>
+                </div>
+                <div class="kana-row">
+                    <div class="kana-cell">
+                        <div class="kana-char">ら</div>
+                        <div class="kana-roma">ra</div>
+                        <div class="kana-sound">라</div>
+                    </div>
+                    <div class="kana-cell">
+                        <div class="kana-char">り</div>
+                        <div class="kana-roma">ri</div>
+                        <div class="kana-sound">리</div>
+                    </div>
+                    <div class="kana-cell">
+                        <div class="kana-char">る</div>
+                        <div class="kana-roma">ru</div>
+                        <div class="kana-sound">루</div>
+                    </div>
+                    <div class="kana-cell">
+                        <div class="kana-char">れ</div>
+                        <div class="kana-roma">re</div>
+                        <div class="kana-sound">레</div>
+                    </div>
+                    <div class="kana-cell">
+                        <div class="kana-char">ろ</div>
+                        <div class="kana-roma">ro</div>
+                        <div class="kana-sound">로</div>
+                    </div>
+                </div>
+                <div class="kana-row">
+                    <div class="kana-cell">
+                        <div class="kana-char">わ</div>
+                        <div class="kana-roma">wa</div>
+                        <div class="kana-sound">와</div>
+                    </div>
+                    <div class="kana-cell empty"></div>
+                    <div class="kana-cell empty"></div>
+                    <div class="kana-cell empty"></div>
+                    <div class="kana-cell">
+                        <div class="kana-char">を</div>
+                        <div class="kana-roma">wo</div>
+                        <div class="kana-sound">오</div>
+                    </div>
+                </div>
+                <div class="kana-row">
+                    <div class="kana-cell">
+                        <div class="kana-char">ん</div>
+                        <div class="kana-roma">n</div>
+                        <div class="kana-sound">ㄴ</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Flashcard Modal -->
+    <div id="flashcardModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('flashcardModal')">&times;</span>
+            <h3>단어 플래시카드</h3>
+            <div class="flashcard-container">
+                <div class="flashcard" onclick="flipCard()">
+                    <div class="flashcard-front">
+                        <div class="card-word">こんにちは</div>
+                        <div class="card-hint">클릭하여 뒤집기</div>
+                    </div>
+                    <div class="flashcard-back">
+                        <div class="card-meaning">안녕하세요</div>
+                        <div class="card-roma">Konnichiwa</div>
+                        <div class="card-example">こんにちは、元気ですか。</div>
+                        <div class="card-example-ko">안녕하세요, 잘 지내세요?</div>
+                    </div>
+                </div>
+                <div class="flashcard-controls">
+                    <button class="control-btn difficult">어려움</button>
+                    <button class="control-btn good">보통</button>
+                    <button class="control-btn easy">쉬움</button>
+                </div>
+                <div class="flashcard-progress">1 / 20</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quiz Modal -->
+    <div id="quizModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('quizModal')">&times;</span>
+            <h3>일본어 퀴즈</h3>
+            <div class="quiz-container">
+                <div class="quiz-question">
+                    <h4>「ありがとう」의 의미는?</h4>
+                    <div class="quiz-options">
+                        <button class="quiz-option" onclick="checkAnswer(this, false)">안녕하세요</button>
+                        <button class="quiz-option" onclick="checkAnswer(this, true)">감사합니다</button>
+                        <button class="quiz-option" onclick="checkAnswer(this, false)">죄송합니다</button>
+                        <button class="quiz-option" onclick="checkAnswer(this, false)">잘 먹겠습니다</button>
+                    </div>
+                </div>
+                <div class="quiz-feedback" id="quizFeedback"></div>
+                <div class="quiz-progress">
+                    <span>문제 1/10</span>
+                    <span>점수: 0</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Grammar Modal -->
+    <div id="grammarModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('grammarModal')">&times;</span>
+            <h3>문법 레슨: 조사 (Particles)</h3>
+            <div class="grammar-content">
+                <div class="grammar-section">
+                    <h4>は (wa) - 주제 표시</h4>
+                    <p class="grammar-explanation">문장의 주제를 나타냅니다. 한국어의 "~은/는"에 해당합니다.</p>
+                    <div class="grammar-example">
+                        <div class="example-ja">私は学生です。</div>
+                        <div class="example-roma">Watashi wa gakusei desu.</div>
+                        <div class="example-ko">저는 학생입니다.</div>
+                    </div>
+                </div>
+                <div class="grammar-section">
+                    <h4>が (ga) - 주어 표시</h4>
+                    <p class="grammar-explanation">문장의 주어를 나타냅니다. 특정한 것을 강조할 때 사용합니다.</p>
+                    <div class="grammar-example">
+                        <div class="example-ja">雨が降っています。</div>
+                        <div class="example-roma">Ame ga futte imasu.</div>
+                        <div class="example-ko">비가 오고 있습니다.</div>
+                    </div>
+                </div>
+                <div class="grammar-section">
+                    <h4>を (wo/o) - 목적어 표시</h4>
+                    <p class="grammar-explanation">동작의 대상을 나타냅니다. 한국어의 "~을/를"에 해당합니다.</p>
+                    <div class="grammar-example">
+                        <div class="example-ja">本を読みます。</div>
+                        <div class="example-roma">Hon wo yomimasu.</div>
+                        <div class="example-ko">책을 읽습니다.</div>
+                    </div>
+                </div>
+                <div class="grammar-section">
+                    <h4>に (ni) - 시간, 장소, 방향</h4>
+                    <p class="grammar-explanation">시간, 존재 장소, 이동 목적지를 나타냅니다.</p>
+                    <div class="grammar-example">
+                        <div class="example-ja">東京に行きます。</div>
+                        <div class="example-roma">Tokyo ni ikimasu.</div>
+                        <div class="example-ko">도쿄에 갑니다.</div>
+                    </div>
+                </div>
+                <div class="grammar-section">
+                    <h4>で (de) - 수단, 장소</h4>
+                    <p class="grammar-explanation">동작의 수단이나 장소를 나타냅니다.</p>
+                    <div class="grammar-example">
+                        <div class="example-ja">電車で行きます。</div>
+                        <div class="example-roma">Densha de ikimasu.</div>
+                        <div class="example-ko">전철로 갑니다.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Modal Functions
+        function openHiraganaChart() {
+            document.getElementById('hiraganaModal').style.display = 'block';
+        }
+
+        function openKatakanaChart() {
+            alert('가타카나 차트 기능이 곧 추가됩니다!');
+        }
+
+        function openKanjiLessons() {
+            alert('한자 학습 기능이 곧 추가됩니다!');
+        }
+
+        function openVocabulary(level) {
+            alert(level + ' 어휘 학습 기능이 곧 추가됩니다!');
+        }
+
+        function openGrammar(type) {
+            if (type === 'particles') {
+                document.getElementById('grammarModal').style.display = 'block';
+            } else {
+                alert('문법 학습 기능이 곧 추가됩니다!');
+            }
+        }
+
+        function openFlashcards() {
+            document.getElementById('flashcardModal').style.display = 'block';
+        }
+
+        function openListening() {
+            alert('듣기 연습 기능이 곧 추가됩니다!');
+        }
+
+        function openReading() {
+            alert('독해 연습 기능이 곧 추가됩니다!');
+        }
+
+        function openWriting() {
+            alert('쓰기 연습 기능이 곧 추가됩니다!');
+        }
+
+        function openQuiz() {
+            document.getElementById('quizModal').style.display = 'block';
+        }
+
+        function openConversation() {
+            alert('회화 연습 기능이 곧 추가됩니다!');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        // Flashcard Functions
+        let isFlipped = false;
+        function flipCard() {
+            const card = document.querySelector('.flashcard');
+            isFlipped = !isFlipped;
+            if (isFlipped) {
+                card.style.transform = 'rotateY(180deg)';
+            } else {
+                card.style.transform = 'rotateY(0deg)';
+            }
+        }
+
+        // Quiz Functions
+        function checkAnswer(button, isCorrect) {
+            const feedback = document.getElementById('quizFeedback');
+            const options = document.querySelectorAll('.quiz-option');
+
+            options.forEach(opt => opt.disabled = true);
+
+            if (isCorrect) {
+                button.classList.add('correct');
+                feedback.innerHTML = '<div class="feedback-correct">정답입니다! 🎉</div>';
+            } else {
+                button.classList.add('incorrect');
+                feedback.innerHTML = '<div class="feedback-incorrect">틀렸습니다. 다시 시도해보세요!</div>';
+            }
+
+            setTimeout(() => {
+                options.forEach(opt => {
+                    opt.disabled = false;
+                    opt.classList.remove('correct', 'incorrect');
+                });
+                feedback.innerHTML = '';
+            }, 2000);
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        }
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
