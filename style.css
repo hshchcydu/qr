@@ -909,3 +909,104 @@ html {
 ::-webkit-scrollbar-thumb:hover {
     background: var(--accent-brown);
 }
+
+/* Kanji Grid */
+.kanji-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 16px;
+    max-height: 60vh;
+    overflow-y: auto;
+    padding: 10px;
+}
+
+.kanji-card {
+    background-color: var(--bg-card);
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.kanji-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+}
+
+.kanji-char-big {
+    font-size: 48px;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+}
+
+.kanji-reading {
+    font-size: 14px;
+    color: var(--accent-brown);
+    margin-bottom: 4px;
+}
+
+.kanji-meaning {
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+/* Listening Container */
+.listening-container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Writing Canvas */
+#writingCanvas {
+    cursor: crosshair;
+}
+
+/* Conversation Lines */
+.conversation-container {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.conversation-line {
+    animation: fadeIn 0.5s ease;
+}
+
+/* Reading Container */
+.reading-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.reading-text {
+    line-height: 2 !important;
+}
+
+/* Additional Modal Styles */
+.modal-content {
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+/* Responsive adjustments for new content */
+@media (max-width: 768px) {
+    .kanji-grid {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 12px;
+    }
+
+    .kanji-char-big {
+        font-size: 36px;
+    }
+
+    #writingCanvas {
+        width: 100% !important;
+        height: auto !important;
+        max-width: 350px;
+    }
+
+    .conversation-line {
+        padding: 12px !important;
+    }
+}
