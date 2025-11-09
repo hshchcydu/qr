@@ -394,6 +394,7 @@ body {
     overflow: hidden;
     border: 1px solid var(--border-color);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
 }
 
 .culture-card:hover {
@@ -422,6 +423,70 @@ body {
     font-size: 14px;
     color: var(--text-secondary);
     line-height: 1.7;
+    margin-bottom: 16px;
+}
+
+.culture-content .practice-btn {
+    width: 100%;
+    margin-top: 8px;
+}
+
+/* Culture Vocabulary Cards */
+.culture-vocabulary {
+    margin: 20px 0;
+}
+
+.culture-vocab-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 16px;
+    margin-top: 16px;
+}
+
+.culture-vocab-card {
+    background-color: var(--bg-primary);
+    padding: 20px 16px;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    position: relative;
+}
+
+.culture-vocab-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent-brown);
+    box-shadow: var(--shadow-sm);
+}
+
+.vocab-japanese {
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+}
+
+.vocab-reading {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 6px;
+}
+
+.vocab-meaning {
+    font-size: 14px;
+    color: var(--accent-brown);
+    margin-bottom: 8px;
+}
+
+.vocab-audio {
+    font-size: 18px;
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+}
+
+.culture-vocab-card:hover .vocab-audio {
+    opacity: 1;
 }
 
 /* Modal Styles */

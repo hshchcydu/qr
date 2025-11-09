@@ -374,10 +374,7 @@ function updateListeningContent() {
 
 function playListening() {
     const current = listeningData[currentListeningIndex];
-    const utterance = new SpeechSynthesisUtterance(current.text);
-    utterance.lang = 'ja-JP';
-    utterance.rate = 0.8;
-    speechSynthesis.speak(utterance);
+    speakJapanese(current.text);
 }
 
 function showListeningTranslation() {
@@ -583,6 +580,221 @@ function nextWritingChar() {
     clearCanvas();
 }
 
+// 가타카나 쓰기 연습 열기
+function openKatakanaWriting() {
+    let html = `
+        <div id="katakanaWritingModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('katakanaWritingModal')">&times;</span>
+                <h3>가타카나 쓰기 연습</h3>
+                <div class="writing-container">
+                    <p style="text-align: center; margin-bottom: 20px;">아래 캔버스에 가타카나를 연습해보세요!</p>
+                    <div style="text-align: center; margin-bottom: 10px;">
+                        <span style="font-size: 48px; font-weight: bold;" id="katakanaWritingChar">ア</span>
+                    </div>
+                    <canvas id="katakanaWritingCanvas" width="400" height="400" style="border: 2px solid #E8DED2; border-radius: 8px; display: block; margin: 0 auto; background: white; touch-action: none;"></canvas>
+                    <div style="text-align: center; margin-top: 20px;">
+                        <button class="control-btn" onclick="clearKatakanaCanvas()">지우기</button>
+                        <button class="control-btn" onclick="nextKatakanaWritingChar()">다음 글자</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    showModal(html);
+
+    setTimeout(() => {
+        initKatakanaCanvas();
+    }, 100);
+}
+
+let katakanaWritingCharIndex = 0;
+let katakanaCanvas, katakanaCtx;
+let isKatakanaDrawing = false;
+
+function initKatakanaCanvas() {
+    katakanaCanvas = document.getElementById('katakanaWritingCanvas');
+    if (!katakanaCanvas) return;
+
+    katakanaCtx = katakanaCanvas.getContext('2d');
+    katakanaCtx.strokeStyle = '#3E3E3E';
+    katakanaCtx.lineWidth = 3;
+    katakanaCtx.lineCap = 'round';
+
+    // 마우스 이벤트
+    katakanaCanvas.addEventListener('mousedown', startKatakanaDrawing);
+    katakanaCanvas.addEventListener('mousemove', drawKatakana);
+    katakanaCanvas.addEventListener('mouseup', stopKatakanaDrawing);
+    katakanaCanvas.addEventListener('mouseout', stopKatakanaDrawing);
+
+    // 터치 이벤트
+    katakanaCanvas.addEventListener('touchstart', handleKatakanaTouchStart, {passive: false});
+    katakanaCanvas.addEventListener('touchmove', handleKatakanaTouchMove, {passive: false});
+    katakanaCanvas.addEventListener('touchend', stopKatakanaDrawing);
+}
+
+function startKatakanaDrawing(e) {
+    isKatakanaDrawing = true;
+    katakanaCtx.beginPath();
+    const rect = katakanaCanvas.getBoundingClientRect();
+    katakanaCtx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
+}
+
+function drawKatakana(e) {
+    if (!isKatakanaDrawing) return;
+    const rect = katakanaCanvas.getBoundingClientRect();
+    katakanaCtx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
+    katakanaCtx.stroke();
+}
+
+function stopKatakanaDrawing() {
+    isKatakanaDrawing = false;
+}
+
+function handleKatakanaTouchStart(e) {
+    e.preventDefault();
+    const touch = e.touches[0];
+    const rect = katakanaCanvas.getBoundingClientRect();
+    isKatakanaDrawing = true;
+    katakanaCtx.beginPath();
+    katakanaCtx.moveTo(touch.clientX - rect.left, touch.clientY - rect.top);
+}
+
+function handleKatakanaTouchMove(e) {
+    e.preventDefault();
+    if (!isKatakanaDrawing) return;
+    const touch = e.touches[0];
+    const rect = katakanaCanvas.getBoundingClientRect();
+    katakanaCtx.lineTo(touch.clientX - rect.left, touch.clientY - rect.top);
+    katakanaCtx.stroke();
+}
+
+function clearKatakanaCanvas() {
+    katakanaCtx.clearRect(0, 0, katakanaCanvas.width, katakanaCanvas.height);
+}
+
+function nextKatakanaWritingChar() {
+    katakanaWritingCharIndex = (katakanaWritingCharIndex + 1) % katakanaData.length;
+    document.getElementById('katakanaWritingChar').textContent = katakanaData[katakanaWritingCharIndex].char;
+    clearKatakanaCanvas();
+}
+
+// 문화 학습 열기
+function openCulture(type) {
+    const culture = cultureData[type];
+    if (!culture) {
+        alert('해당 문화 콘텐츠가 준비 중입니다.');
+        return;
+    }
+
+    let html = `
+        <div id="cultureModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('cultureModal')">&times;</span>
+                <h3>${culture.title}</h3>
+                <p style="color: #6B6B6B; margin-bottom: 30px;">${culture.description}</p>
+    `;
+
+    // 어휘가 있는 경우
+    if (culture.vocabulary) {
+        html += '<div class="culture-vocabulary"><h4>관련 어휘</h4><div class="culture-vocab-grid">';
+        culture.vocabulary.forEach((vocab, index) => {
+            html += `
+                <div class="culture-vocab-card" onclick="speakJapanese('${vocab.japanese}')">
+                    <div class="vocab-japanese">${vocab.japanese}</div>
+                    <div class="vocab-reading">${vocab.reading}</div>
+                    <div class="vocab-meaning">${vocab.meaning}</div>
+                    <div class="vocab-audio">🔊</div>
+                </div>
+            `;
+        });
+        html += '</div></div>';
+    }
+
+    // 구절이 있는 경우 (음식)
+    if (culture.phrases) {
+        html += '<div class="culture-phrases" style="margin-top: 30px;"><h4>유용한 표현</h4>';
+        culture.phrases.forEach(phrase => {
+            html += `
+                <div class="culture-phrase-card" style="background: #F5F0E8; padding: 15px; margin: 10px 0; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <div style="font-size: 18px; margin-bottom: 5px;">${phrase.japanese}</div>
+                        <div style="color: #6B6B6B;">${phrase.meaning}</div>
+                    </div>
+                    <button class="control-btn" onclick="speakJapanese('${phrase.japanese}')">🔊</button>
+                </div>
+            `;
+        });
+        html += '</div>';
+    }
+
+    // 예절 콘텐츠가 있는 경우
+    if (culture.content) {
+        html += '<div class="culture-manners" style="margin-top: 30px;"><h4>주요 예절</h4>';
+        culture.content.forEach(item => {
+            html += `
+                <div class="culture-manner-card" style="background: #FEFDFB; padding: 20px; margin: 15px 0; border-radius: 8px; border-left: 4px solid #8B7355;">
+                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 10px;">
+                        <div>
+                            <h5 style="color: #8B7355; margin: 0 0 5px 0;">${item.situation}</h5>
+                            <div style="font-size: 18px; margin-bottom: 5px;">${item.japanese} (${item.reading})</div>
+                        </div>
+                        <button class="control-btn" onclick="speakJapanese('${item.japanese}')" style="font-size: 12px;">🔊</button>
+                    </div>
+                    <p style="color: #6B6B6B; margin: 0;">${item.description}</p>
+                </div>
+            `;
+        });
+        html += '</div>';
+    }
+
+    html += `
+                <div style="text-align: center; margin-top: 30px;">
+                    <button class="practice-btn" onclick="completeCultureLesson()">학습 완료</button>
+                </div>
+            </div>
+        </div>
+    `;
+    showModal(html);
+}
+
+function completeCultureLesson() {
+    learningStats.lessonsCompleted++;
+    learningStats.studyTime += 3;
+    saveStats();
+    alert('문화 학습 완료!');
+}
+
+// 개선된 음성 합성 함수
+function speakJapanese(text) {
+    // 이전 음성 중지
+    speechSynthesis.cancel();
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'ja-JP';
+
+    // 음성 품질 개선 설정
+    utterance.rate = 0.85;  // 속도 조절 (0.1 ~ 2.0)
+    utterance.pitch = 1.0;  // 음높이 (0 ~ 2)
+    utterance.volume = 1.0; // 볼륨 (0 ~ 1)
+
+    // 일본어 음성 선택 시도
+    const voices = speechSynthesis.getVoices();
+    const japaneseVoice = voices.find(voice =>
+        voice.lang === 'ja-JP' ||
+        voice.lang.startsWith('ja') ||
+        voice.name.includes('Japanese') ||
+        voice.name.includes('Kyoko') ||
+        voice.name.includes('Otoya')
+    );
+
+    if (japaneseVoice) {
+        utterance.voice = japaneseVoice;
+    }
+
+    speechSynthesis.speak(utterance);
+}
+
 // 퀴즈 열기
 let currentQuizIndex = 0;
 let quizScore = 0;
@@ -726,10 +938,7 @@ function showConversation() {
 }
 
 function speakConversationLine(text) {
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = 'ja-JP';
-    utterance.rate = 0.8;
-    speechSynthesis.speak(utterance);
+    speakJapanese(text);
 }
 
 function nextConversation() {

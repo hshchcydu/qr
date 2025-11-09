@@ -210,11 +210,12 @@
                     <p>짧은 글과 대화문 읽기</p>
                     <button class="practice-btn">시작하기</button>
                 </div>
-                <div class="practice-card" onclick="openWriting()">
+                <div class="practice-card">
                     <div class="practice-icon">✍️</div>
                     <h4>쓰기 연습</h4>
                     <p>문자 획순 연습</p>
-                    <button class="practice-btn">시작하기</button>
+                    <button class="practice-btn" onclick="openWriting()">히라가나 쓰기</button>
+                    <button class="practice-btn" onclick="openKatakanaWriting()" style="margin-top: 8px;">가타카나 쓰기</button>
                 </div>
                 <div class="practice-card" onclick="openQuiz()">
                     <div class="practice-icon">🎯</div>
@@ -237,32 +238,36 @@
         <div class="container">
             <h2>일본 문화</h2>
             <div class="culture-grid">
-                <div class="culture-card">
+                <div class="culture-card" onclick="openCulture('food')">
                     <img src="https://via.placeholder.com/400x250/F5F0E8/8B7355?text=日本料理" alt="일본 요리">
                     <div class="culture-content">
                         <h4>일본 요리</h4>
                         <p>초밥, 라멘, 텐푸라 등 일본 음식 문화와 관련 표현 배우기</p>
+                        <button class="practice-btn">학습하기</button>
                     </div>
                 </div>
-                <div class="culture-card">
+                <div class="culture-card" onclick="openCulture('tradition')">
                     <img src="https://via.placeholder.com/400x250/F5F0E8/8B7355?text=伝統" alt="전통">
                     <div class="culture-content">
                         <h4>전통 문화</h4>
                         <p>다도, 서예, 기모노 등 일본의 전통 문화 이해하기</p>
+                        <button class="practice-btn">학습하기</button>
                     </div>
                 </div>
-                <div class="culture-card">
+                <div class="culture-card" onclick="openCulture('festivals')">
                     <img src="https://via.placeholder.com/400x250/F5F0E8/8B7355?text=祭り" alt="축제">
                     <div class="culture-content">
                         <h4>축제와 명절</h4>
                         <p>일본의 연중 행사와 축제 관련 어휘 학습</p>
+                        <button class="practice-btn">학습하기</button>
                     </div>
                 </div>
-                <div class="culture-card">
+                <div class="culture-card" onclick="openCulture('manners')">
                     <img src="https://via.placeholder.com/400x250/F5F0E8/8B7355?text=マナー" alt="예절">
                     <div class="culture-content">
                         <h4>일본 예절</h4>
                         <p>인사, 식사, 대화 예절과 존댓말 표현</p>
+                        <button class="practice-btn">학습하기</button>
                     </div>
                 </div>
             </div>
