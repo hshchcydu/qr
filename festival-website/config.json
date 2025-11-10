@@ -1,0 +1,137 @@
+{
+  "festival": {
+    "name": "나의 축제",
+    "nameEn": "My Festival",
+    "tagline": "당신을 위한 특별한 축제",
+    "year": "2026",
+    "logo": "assets/images/logo.svg"
+  },
+  "navigation": {
+    "items": [
+      {"label": "소식", "link": "#news"},
+      {"label": "축제 소개", "link": "#about"},
+      {"label": "일정", "link": "#schedule"},
+      {"label": "오시는 길", "link": "#access"}
+    ]
+  },
+  "languages": [
+    {"code": "ko", "label": "한국어"},
+    {"code": "en", "label": "English"},
+    {"code": "ja", "label": "日本語"}
+  ],
+  "hero": {
+    "title": "나의 축제 2026",
+    "subtitle": "함께 만드는 특별한 순간",
+    "backgroundImage": "assets/images/hero-bg.jpg",
+    "scrollText": "스크롤"
+  },
+  "schedule": {
+    "title": "축제 일정",
+    "dates": "2026년 2월 4일(수) ~ 2월 11일(수)",
+    "venues": [
+      {
+        "name": "메인 회장",
+        "location": "중앙 공원",
+        "dates": "2월 4일 ~ 11일",
+        "hours": "10:00 - 22:00",
+        "description": "메인 이벤트와 공연이 진행되는 중심 장소입니다.",
+        "image": "assets/images/venue1.jpg"
+      },
+      {
+        "name": "체험 회장",
+        "location": "시민 광장",
+        "dates": "2월 4일 ~ 11일",
+        "hours": "09:00 - 17:00",
+        "description": "다양한 체험 프로그램과 워크숍이 열립니다.",
+        "image": "assets/images/venue2.jpg"
+      },
+      {
+        "name": "야간 회장",
+        "location": "시내 중심가",
+        "dates": "2월 4일 ~ 11일",
+        "hours": "18:00 - 23:00",
+        "description": "화려한 조명과 함께하는 야간 축제 공간입니다.",
+        "image": "assets/images/venue3.jpg"
+      }
+    ]
+  },
+  "news": [
+    {
+      "date": "2025-11-10",
+      "title": "2026년 축제 일정 발표",
+      "content": "2026년 축제가 2월 4일부터 11일까지 개최됩니다.",
+      "category": "공지사항"
+    },
+    {
+      "date": "2025-11-05",
+      "title": "참가 신청 시작",
+      "content": "부스 및 공연 참가 신청을 받습니다.",
+      "category": "모집"
+    },
+    {
+      "date": "2025-11-01",
+      "title": "자원봉사자 모집",
+      "content": "축제를 함께 만들어갈 자원봉사자를 모집합니다.",
+      "category": "모집"
+    }
+  ],
+  "about": {
+    "sections": [
+      {
+        "title": "축제 소개",
+        "content": "우리 축제는 지역 문화와 예술을 함께 나누는 특별한 행사입니다. 매년 수만 명의 방문객이 찾아주시는 대한민국 대표 축제로 자리잡았습니다.",
+        "image": "assets/images/about1.jpg"
+      },
+      {
+        "title": "축제 역사",
+        "content": "2010년 시작된 우리 축제는 15년의 역사를 자랑합니다. 지역 주민들의 자발적인 참여로 시작되어 이제는 국제적인 축제로 성장했습니다.",
+        "image": "assets/images/about2.jpg"
+      },
+      {
+        "title": "참여 방법",
+        "content": "누구나 참여할 수 있는 다양한 프로그램이 준비되어 있습니다. 공연, 전시, 체험 활동 등 여러분이 원하는 방식으로 축제를 즐기실 수 있습니다.",
+        "image": "assets/images/about3.jpg"
+      }
+    ]
+  },
+  "social": {
+    "twitter": "https://twitter.com/yourfestival",
+    "instagram": "https://instagram.com/yourfestival",
+    "facebook": "https://facebook.com/yourfestival",
+    "youtube": "https://youtube.com/@yourfestival"
+  },
+  "footer": {
+    "organizerName": "축제 조직위원회",
+    "address": "서울특별시 종로구 세종대로 123",
+    "phone": "02-1234-5678",
+    "email": "info@yourfestival.com",
+    "copyright": "© 2026 Your Festival. All rights reserved.",
+    "links": [
+      {"label": "개인정보처리방침", "url": "#privacy"},
+      {"label": "이용약관", "url": "#terms"},
+      {"label": "오시는 길", "url": "#access"},
+      {"label": "자주 묻는 질문", "url": "#faq"}
+    ]
+  },
+  "weather": {
+    "title": "날씨 정보",
+    "description": "축제 기간 평균 기온은 5-10도입니다. 따뜻한 옷차림을 권장합니다.",
+    "recommendations": [
+      "따뜻한 외투 필수",
+      "장갑과 목도리 준비",
+      "미끄럼 방지 신발 착용",
+      "핫팩 준비"
+    ]
+  },
+  "gallery": {
+    "title": "갤러리",
+    "images": [
+      {"src": "assets/images/gallery1.jpg", "caption": "2025년 축제 현장"},
+      {"src": "assets/images/gallery2.jpg", "caption": "공연 모습"},
+      {"src": "assets/images/gallery3.jpg", "caption": "체험 프로그램"},
+      {"src": "assets/images/gallery4.jpg", "caption": "야간 조명"},
+      {"src": "assets/images/gallery5.jpg", "caption": "방문객들"},
+      {"src": "assets/images/gallery6.jpg", "caption": "전시 작품"}
+    ]
+  }
+}

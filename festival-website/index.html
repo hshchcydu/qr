@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="축제 공식 웹사이트">
+    <title id="page-title">축제 | Festival</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Language Switcher (Mobile) -->
+    <div class="mobile-lang-switcher" id="mobileLangSwitcher">
+        <button class="lang-close" id="langCloseBtn">&times;</button>
+        <div class="lang-options" id="mobileLangOptions"></div>
+    </div>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay">
+        <button class="menu-close" id="menuCloseBtn">&times;</button>
+        <nav class="mobile-nav" id="mobileNav"></nav>
+    </div>
+
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="header-container">
+            <div class="header-left">
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+
+            <div class="header-center">
+                <a href="#" class="logo">
+                    <div id="logo-container"></div>
+                </a>
+            </div>
+
+            <div class="header-right">
+                <nav class="main-nav" id="mainNav"></nav>
+                <div class="language-selector">
+                    <button class="lang-btn" id="langBtn">
+                        <span id="currentLang">한국어</span>
+                        <svg width="12" height="8" viewBox="0 0 12 8" fill="none">
+                            <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                    </button>
+                    <div class="lang-dropdown" id="langDropdown"></div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-background"></div>
+        <div class="hero-content">
+            <div class="hero-logo" id="heroLogo"></div>
+            <h1 class="hero-title" id="heroTitle"></h1>
+            <p class="hero-subtitle" id="heroSubtitle"></p>
+            <a href="#schedule" class="scroll-indicator">
+                <span id="scrollText">Scroll</span>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M12 5V19M12 19L5 12M12 19L19 12" stroke="white" stroke-width="2"/>
+                </svg>
+            </a>
+        </div>
+        <div class="hero-decorations">
+            <div class="decoration-element decoration-1"></div>
+            <div class="decoration-element decoration-2"></div>
+            <div class="decoration-element decoration-3"></div>
+        </div>
+    </section>
+
+    <!-- News Section -->
+    <section class="section news-section" id="news">
+        <div class="container">
+            <h2 class="section-title">최신 소식</h2>
+            <div class="news-grid" id="newsGrid"></div>
+            <div class="section-cta">
+                <button class="btn btn-outline" id="viewAllNews">모든 소식 보기</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Media Section -->
+    <section class="section social-section">
+        <div class="container">
+            <h2 class="section-title">소셜 미디어</h2>
+            <p class="section-subtitle">실시간 소식을 팔로우하세요</p>
+            <div class="social-buttons" id="socialButtons"></div>
+        </div>
+    </section>
+
+    <!-- Schedule Section -->
+    <section class="section schedule-section" id="schedule">
+        <div class="container">
+            <h2 class="section-title">축제 일정</h2>
+            <p class="schedule-dates" id="scheduleDates"></p>
+            <div class="venues-grid" id="venuesGrid"></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section about-section" id="about">
+        <div class="container">
+            <h2 class="section-title">축제 소개</h2>
+            <div class="about-content" id="aboutContent"></div>
+        </div>
+    </section>
+
+    <!-- Weather Section -->
+    <section class="section weather-section">
+        <div class="container">
+            <div class="weather-card">
+                <h3 class="weather-title" id="weatherTitle"></h3>
+                <p class="weather-description" id="weatherDescription"></p>
+                <ul class="weather-recommendations" id="weatherRecommendations"></ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="section gallery-section">
+        <div class="container">
+            <h2 class="section-title">갤러리</h2>
+            <div class="gallery-grid" id="galleryGrid"></div>
+        </div>
+    </section>
+
+    <!-- Access Section -->
+    <section class="section access-section" id="access">
+        <div class="container">
+            <h2 class="section-title">오시는 길</h2>
+            <div class="access-content">
+                <div class="access-map">
+                    <div class="map-placeholder">
+                        <svg width="100" height="100" viewBox="0 0 100 100" fill="none">
+                            <circle cx="50" cy="50" r="30" stroke="#667eea" stroke-width="2"/>
+                            <path d="M50 30V50L65 60" stroke="#667eea" stroke-width="2"/>
+                        </svg>
+                        <p>지도 영역</p>
+                    </div>
+                </div>
+                <div class="access-info">
+                    <h3>교통 안내</h3>
+                    <div class="access-item">
+                        <h4>🚇 지하철</h4>
+                        <p>1호선 축제역 1번 출구 도보 5분</p>
+                    </div>
+                    <div class="access-item">
+                        <h4>🚌 버스</h4>
+                        <p>간선 102, 103번 / 지선 201, 202번</p>
+                    </div>
+                    <div class="access-item">
+                        <h4>🚗 자가용</h4>
+                        <p>내비게이션 '중앙공원 주차장' 검색</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4 id="footerOrgName"></h4>
+                    <p id="footerAddress"></p>
+                    <p>Tel: <span id="footerPhone"></span></p>
+                    <p>Email: <span id="footerEmail"></span></p>
+                </div>
+                <div class="footer-section">
+                    <h4>바로가기</h4>
+                    <ul class="footer-links" id="footerLinks"></ul>
+                </div>
+                <div class="footer-section">
+                    <h4>소셜 미디어</h4>
+                    <div class="footer-social" id="footerSocial"></div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p id="footerCopyright"></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Loading Indicator -->
+    <div class="loading-indicator" id="loadingIndicator">
+        <div class="spinner"></div>
+    </div>
+
+    <script src="assets/js/app.js"></script>
+</body>
+</html>
