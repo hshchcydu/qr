@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>홋카이도 관광 공식 사이트 GO HOKKAIDO</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-top {
+            background: #f5f5f5;
+            padding: 8px 0;
+            font-size: 13px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header-top .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-main {
+            padding: 15px 0;
+        }
+
+        .header-main .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .logo-big {
+            font-size: 28px;
+            font-weight: 800;
+            color: #0066cc;
+            letter-spacing: 1px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+            padding: 10px 0;
+            border-bottom: 3px solid transparent;
+        }
+
+        nav a:hover {
+            border-bottom-color: #0066cc;
+        }
+
+        /* Hero */
+        .hero {
+            position: relative;
+            height: 500px;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)),
+                        url('https://cdn.pixabay.com/photo/2020/02/06/14/58/sapporo-4823849_1280.jpg') center/cover;
+        }
+
+        .hero-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            width: 90%;
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+        }
+
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: #0066cc;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+        }
+
+        .btn:hover {
+            background: #0052a3;
+        }
+
+        /* Sections */
+        section {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-title h2 {
+            font-size: 32px;
+            color: #0066cc;
+            margin-bottom: 10px;
+        }
+
+        .section-title p {
+            color: #666;
+        }
+
+        /* Cards Grid */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 20px;
+        }
+
+        .card-content h3 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .card-content p {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .card-link {
+            display: inline-block;
+            margin-top: 15px;
+            color: #0066cc;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .card-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Events */
+        .events {
+            background: #f9f9f9;
+        }
+
+        .event-item {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid #0066cc;
+            border-radius: 4px;
+        }
+
+        .event-date {
+            color: #0066cc;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        /* Footer */
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 40px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        footer h4 {
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        footer ul {
+            list-style: none;
+        }
+
+        footer a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            font-size: 14px;
+            line-height: 2;
+        }
+
+        footer a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.6);
+            font-size: 13px;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 32px; }
+            nav ul { flex-direction: column; gap: 10px; }
+            .cards { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-top">
+            <div class="container">
+                <div>비즈니스・미디어 | 교육여행 | MICE</div>
+                <div>🌐 한국어 ▼</div>
+            </div>
+        </div>
+        <div class="header-main">
+            <div class="container">
+                <div>
+                    <div class="logo">홋카이도 관광 공식 사이트</div>
+                    <div class="logo-big">GO HOKKAIDO</div>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#new">NEW</a></li>
+                        <li><a href="#calendar">CALENDAR</a></li>
+                        <li><a href="#spot">SPOT</a></li>
+                        <li><a href="#food">FOOD</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>홋카이도에 오신 것을 환영합니다</h1>
+            <p>일본 최북단의 자연과 문화를 경험하세요</p>
+            <a href="#spot" class="btn">여행 시작하기</a>
+        </div>
+    </section>
+
+    <!-- NEW Section -->
+    <section id="new">
+        <div class="container">
+            <div class="section-title">
+                <h2>NEW</h2>
+                <p>최신 정보</p>
+            </div>
+            <div class="cards">
+                <div class="card">
+                    <img src="https://cdn.pixabay.com/photo/2019/02/07/14/03/sapporo-3981242_1280.jpg" alt="삿포로 눈축제">
+                    <div class="card-content">
+                        <h3>제75회 삿포로 눈축제</h3>
+                        <p>2025년 2월 4일-11일 개최. 오도리 공원에서 펼쳐지는 거대한 눈과 얼음 조각 전시.</p>
+                        <a href="https://www.snowfes.com/en/" target="_blank" class="card-link">공식 사이트 →</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="https://cdn.pixabay.com/photo/2016/11/29/01/07/lavender-1866490_1280.jpg" alt="후라노 라벤더">
+                    <div class="card-content">
+                        <h3>후라노 라벤더 시즌</h3>
+                        <p>6월 말부터 8월 초까지 보라빛 라벤더 밭이 만개합니다. 팜 토미타 추천.</p>
+                        <a href="https://www.farm-tomita.co.jp/en/" target="_blank" class="card-link">팜 토미타 →</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="https://cdn.pixabay.com/photo/2019/12/15/03/05/hakodate-4695645_1280.jpg" alt="하코다테 야경">
+                    <div class="card-content">
+                        <h3>하코다테 야경</h3>
+                        <p>일본 3대 야경 중 하나. 하코다테 산 로프웨이로 올라가 환상적인 야경을 감상하세요.</p>
+                        <a href="#hakodate" class="card-link">자세히 →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calendar / Events -->
+    <section id="calendar" class="events">
+        <div class="container">
+            <div class="section-title">
+                <h2>CALENDAR</h2>
+                <p>주요 축제 및 이벤트</p>
+            </div>
+            <div class="event-item">
+                <div class="event-date">2025.02.04 - 02.11</div>
+                <h3>제75회 삿포로 눈축제 (Sapporo Snow Festival)</h3>
+                <p>세계적으로 유명한 겨울 축제. 오도리 공원, 스스키노, 츠도무 3개 회장에서 개최.</p>
+                <a href="https://www.snowfes.com/en/" target="_blank" class="card-link">공식 웹사이트</a>
+            </div>
+            <div class="event-item">
+                <div class="event-date">2025.06.04 - 06.08</div>
+                <h3>YOSAKOI 소란 축제</h3>
+                <p>3만명이 참가하는 일본 최대 댄스 축제. 삿포로 시내 20여 회장에서 진행.</p>
+                <a href="https://www.yosakoi-soran.jp/en/" target="_blank" class="card-link">공식 웹사이트</a>
+            </div>
+            <div class="event-item">
+                <div class="event-date">6월 말 ~ 8월 초</div>
+                <h3>후라노 라벤더 시즌</h3>
+                <p>팜 토미타를 중심으로 라벤더가 만개. 7월 중순이 절정기.</p>
+                <a href="https://www.farm-tomita.co.jp/en/" target="_blank" class="card-link">팜 토미타</a>
+            </div>
+            <div class="event-item">
+                <div class="event-date">2월</div>
+                <h3>오타루 눈빛의 길</h3>
+                <p>오타루 운하를 따라 펼쳐지는 낭만적인 조명 축제.</p>
+            </div>
+            <div class="event-item">
+                <div class="event-date">12월 ~ 4월</div>
+                <h3>니세코 스키 시즌</h3>
+                <p>세계 최고 수준의 파우더 스노우. 니세코, 루스츠, 후라노 스키 리조트.</p>
+                <a href="https://www.niseko.ne.jp/en/" target="_blank" class="card-link">니세코 공식</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- SPOT -->
+    <section id="spot">
+        <div class="container">
+            <div class="section-title">
+                <h2>SPOT</h2>
+                <p>주요 관광지</p>
+            </div>
+            <div class="cards">
+                <div class="card">
+                    <img src="https://cdn.pixabay.com/photo/2018/03/15/08/03/sapporo-3227277_1280.jpg" alt="삿포로">
+                    <div class="card-content">
+                        <h3>삿포로 (Sapporo)</h3>
+                        <p>홋카이도의 중심 도시. 눈축제, 삿포로 맥주 박물관, 오도리 공원, 시계탑 등.</p>
+                        <a href="https://www.sapporo.travel/en/" target="_blank" class="card-link">삿포로 관광 →</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="https://cdn.pixabay.com/photo/2016/03/04/19/36/beach-1236581_1280.jpg" alt="오타루">
+                    <div class="card-content">
+                        <h3>오타루 (Otaru)</h3>
+                        <p>낭만적인 운하와 유리공예의 도시. 겨울 눈빛의 길 축제로 유명.</p>
+                        <a href="#otaru-detail" class="card-link">자세히 →</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="https://cdn.pixabay.com/photo/2019/05/09/08/04/niseko-4190933_1280.jpg" alt="니세코">
+                    <div class="card-content">
+                        <h3>니세코 (Niseko)</h3>
+                        <p>세계적인 파우더 스노우 스키 리조트. 겨울 스포츠의 천국.</p>
+                        <a href="https://www.niseko.ne.jp/en/" target="_blank" class="card-link">니세코 공식 →</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="https://cdn.pixabay.com/photo/2019/05/31/13/17/blue-pond-4243852_1280.jpg" alt="비에이">
+                    <div class="card-content">
+                        <h3>비에이 (Biei)</h3>
+                        <p>신비로운 Blue Pond와 패치워크 언덕. 인스타그램 명소.</p>
+                        <a href="#biei-detail" class="card-link">자세히 →</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="https://cdn.pixabay.com/photo/2017/01/28/02/24/japan-2014618_1280.jpg" alt="시레토코">
+                    <div class="card-content">
+                        <h3>시레토코 (Shiretoko)</h3>
+                        <p>세계자연유산. 야생 불곰, 여우, 사슴 등 야생동물의 보고.</p>
+                        <a href="#shiretoko-detail" class="card-link">자세히 →</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="https://cdn.pixabay.com/photo/2019/11/07/20/51/jigokudani-4609209_1280.jpg" alt="노보리베츠">
+                    <div class="card-content">
+                        <h3>노보리베츠 (Noboribetsu)</h3>
+                        <p>홋카이도 최고의 온천 마을. 지옥 계곡과 11종의 온천수.</p>
+                        <a href="#noboribetsu-detail" class="card-link">자세히 →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOD -->
+    <section id="food" class="events">
+        <div class="container">
+            <div class="section-title">
+                <h2>FOOD</h2>
+                <p>홋카이도 먹거리</p>
+            </div>
+            <div class="cards">
+                <div class="card">
+                    <img src="https://cdn.pixabay.com/photo/2020/05/18/05/02/crab-5185836_1280.jpg" alt="게 요리">
+                    <div class="card-content">
+                        <h3>킹크랩・털게・대게</h3>
+                        <p>홋카이도를 대표하는 해산물. 니조 시장, 하코다테 아침 시장에서 신선한 게를 맛보세요.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="https://cdn.pixabay.com/photo/2017/06/10/13/00/ramen-2390501_1280.jpg" alt="라멘">
+                    <div class="card-content">
+                        <h3>삿포로 미소 라멘</h3>
+                        <p>진한 미소 국물과 곱슬면. 스미레, 다이신 등 유명 라멘점 방문 추천. (¥800-1,200)</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="https://cdn.pixabay.com/photo/2016/03/05/19/02/hamburger-1238246_1280.jpg" alt="징기스칸">
+                    <div class="card-content">
+                        <h3>징기스칸 (양고기 BBQ)</h3>
+                        <p>특제 그릴에 구운 양고기. 삿포로 비어가든에서 맥주와 함께 즐기세요.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <h4>관광 정보</h4>
+                    <ul>
+                        <li><a href="https://www.visit-hokkaido.jp/en/" target="_blank">홋카이도 공식 관광</a></li>
+                        <li><a href="https://www.sapporo.travel/en/" target="_blank">삿포로 관광</a></li>
+                        <li><a href="#access">교통 안내</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>주요 이벤트</h4>
+                    <ul>
+                        <li><a href="https://www.snowfes.com/en/" target="_blank">삿포로 눈축제</a></li>
+                        <li><a href="https://www.yosakoi-soran.jp/en/" target="_blank">YOSAKOI 소란</a></li>
+                        <li><a href="https://www.farm-tomita.co.jp/en/" target="_blank">팜 토미타</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>인기 스팟</h4>
+                    <ul>
+                        <li><a href="https://www.niseko.ne.jp/en/" target="_blank">니세코</a></li>
+                        <li><a href="https://ainu-upopoy.jp/en/" target="_blank">우포포이 박물관</a></li>
+                        <li><a href="#onsen">온천 가이드</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>사이트 정보</h4>
+                    <ul>
+                        <li><a href="#about">소개</a></li>
+                        <li><a href="#contact">문의</a></li>
+                        <li><a href="#privacy">개인정보</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 GO HOKKAIDO | 홋카이도 관광 공식 가이드</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
