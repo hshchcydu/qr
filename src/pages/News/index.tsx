@@ -1,86 +1,93 @@
-import { useState } from 'react';
-import { useNews } from '@/hooks/useNews';
-import NewsFilter from '@/components/news/NewsFilter';
+import { useState, useEffect, useCallback } from 'react';
 import NewsFeed from '@/components/news/NewsFeed';
-import type { NewsFilter as NewsFilterType } from '@/types';
+import { generateMockNews } from '@/utils/mockNews';
+import type { NewsArticle } from '@/types';
 
 const News = () => {
-  const [filter, setFilter] = useState<NewsFilterType>({});
+  const [articles, setArticles] = useState<NewsArticle[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(1);
-  const { data, isLoading } = useNews(filter, page, 12);
 
-  const handleFilterChange = (newFilter: NewsFilterType) => {
-    setFilter(newFilter);
-    setPage(1); // Reset to first page when filter changes
-  };
+  // Initialize with mock data
+  useEffect(() => {
+    setIsLoading(true);
+    setTimeout(() => {
+      const mockArticles = generateMockNews();
+      setArticles(mockArticles);
+      setIsLoading(false);
+    }, 500);
+  }, []);
 
-  const handleLoadMore = () => {
-    setPage((prev) => prev + 1);
-  };
+  // Load more articles
+  const handleLoadMore = useCallback(() => {
+    if (isLoading || !hasMore) return;
+
+    setIsLoading(true);
+    setPage(prev => prev + 1);
+
+    // Simulate API call
+    setTimeout(() => {
+      const moreArticles = generateMockNews();
+      setArticles(prev => [...prev, ...moreArticles]);
+      setIsLoading(false);
+
+      // Simulate reaching end after 3 pages
+      if (page >= 2) {
+        setHasMore(false);
+      }
+    }, 1000);
+  }, [isLoading, hasMore, page]);
+
+  const handleBookmark = useCallback((id: string) => {
+    console.log('Bookmarked article:', id);
+  }, []);
+
+  const handleShare = useCallback((article: NewsArticle) => {
+    console.log('Shared article:', article.title);
+    // You could implement actual share functionality here
+    if (navigator.share) {
+      navigator.share({
+        title: article.title,
+        text: article.summary,
+        url: article.url,
+      }).catch(() => {
+        // Fallback if share fails
+      });
+    }
+  }, []);
 
   return (
     <div>
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Investment News</h1>
-        <p className="text-gray-600">
-          Stay updated with the latest market news and financial insights
-        </p>
-      </div>
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">
+              Investment News
+            </h1>
+            <p className="text-gray-600 dark:text-gray-400">
+              Real-time updates on markets, earnings, and economic data
+            </p>
+          </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-        {/* Filters Sidebar */}
-        <div className="lg:col-span-1">
-          <NewsFilter onFilterChange={handleFilterChange} />
-
-          {/* Quick Stats */}
-          <div className="card mt-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">
-              Today's Stats
-            </h3>
-            <div className="space-y-3">
-              <div className="flex justify-between text-sm">
-                <span className="text-gray-600">Total Articles</span>
-                <span className="font-semibold text-gray-900">
-                  {data?.total || 0}
-                </span>
-              </div>
-              <div className="flex justify-between text-sm">
-                <span className="text-gray-600">Positive</span>
-                <span className="font-semibold text-green-600">45%</span>
-              </div>
-              <div className="flex justify-between text-sm">
-                <span className="text-gray-600">Negative</span>
-                <span className="font-semibold text-red-600">30%</span>
-              </div>
-              <div className="flex justify-between text-sm">
-                <span className="text-gray-600">Neutral</span>
-                <span className="font-semibold text-gray-600">25%</span>
-              </div>
-            </div>
+          {/* Real-time Status */}
+          <div className="hidden md:flex items-center gap-2 px-4 py-2 bg-positive-50 dark:bg-positive-900/20 border border-positive-200 dark:border-positive-900/30 rounded-lg">
+            <div className="w-2 h-2 bg-positive-500 rounded-full animate-pulse"></div>
+            <span className="text-sm font-medium text-positive-700 dark:text-positive-300">
+              Live
+            </span>
           </div>
         </div>
-
-        {/* News Feed */}
-        <div className="lg:col-span-3">
-          <NewsFeed articles={data?.data || []} isLoading={isLoading} />
-
-          {/* Load More */}
-          {data && data.hasMore && (
-            <div className="mt-8 text-center">
-              <button onClick={handleLoadMore} className="btn-primary">
-                Load More Articles
-              </button>
-            </div>
-          )}
-
-          {/* Pagination Info */}
-          {data && data.data.length > 0 && (
-            <div className="mt-6 text-center text-sm text-gray-600">
-              Showing {data.data.length} of {data.total} articles
-            </div>
-          )}
-        </div>
       </div>
+
+      <NewsFeed
+        articles={articles}
+        isLoading={isLoading}
+        hasMore={hasMore}
+        onLoadMore={handleLoadMore}
+        onBookmark={handleBookmark}
+        onShare={handleShare}
+      />
     </div>
   );
 };
