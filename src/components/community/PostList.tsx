@@ -4,10 +4,12 @@ import type { Post } from '@/types';
 interface PostListProps {
   posts: Post[];
   isLoading?: boolean;
-  onLike?: (id: string) => void;
+  onUpvote?: (id: string) => void;
+  onDownvote?: (id: string) => void;
+  onBookmark?: (id: string) => void;
 }
 
-const PostList = ({ posts, isLoading, onLike }: PostListProps) => {
+const PostList = ({ posts, isLoading, onUpvote, onDownvote, onBookmark }: PostListProps) => {
   if (isLoading) {
     return (
       <div className="space-y-4">
@@ -54,7 +56,13 @@ const PostList = ({ posts, isLoading, onLike }: PostListProps) => {
   return (
     <div className="space-y-4">
       {posts.map((post) => (
-        <PostCard key={post.id} post={post} onLike={onLike} />
+        <PostCard
+          key={post.id}
+          post={post}
+          onUpvote={onUpvote}
+          onDownvote={onDownvote}
+          onBookmark={onBookmark}
+        />
       ))}
     </div>
   );

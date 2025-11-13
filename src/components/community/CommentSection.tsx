@@ -1,147 +1,283 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import type { Comment } from '@/types';
-import { formatRelativeTime, getInitials } from '@/utils';
+import CommentItem from './CommentItem';
+import { useAppStore } from '@/store';
+import { generateMockComments } from '@/utils/mockCommentData';
+
+type SortType = 'best' | 'latest' | 'oldest';
 
 interface CommentSectionProps {
-  comments: Comment[];
-  onAddComment: (content: string) => void;
-  isLoading?: boolean;
+  postId: string;
+  commentCount?: number;
 }
 
-const CommentSection = ({ comments, onAddComment, isLoading }: CommentSectionProps) => {
+const CommentSection = ({ postId, commentCount = 0 }: CommentSectionProps) => {
+  const [comments, setComments] = useState<Comment[]>(() =>
+    commentCount > 0 ? generateMockComments(postId, Math.min(commentCount, 15)) : []
+  );
+  const [sortBy, setSortBy] = useState<SortType>('best');
   const [newComment, setNewComment] = useState('');
+  const showToast = useAppStore((state) => state.showToast);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (newComment.trim()) {
-      onAddComment(newComment);
-      setNewComment('');
-    }
+  // Recursively update comment in nested structure
+  const updateCommentRecursive = (
+    comments: Comment[],
+    commentId: string,
+    updater: (comment: Comment) => Comment
+  ): Comment[] => {
+    return comments.map((comment) => {
+      if (comment.id === commentId) {
+        return updater(comment);
+      }
+      if (comment.replies && comment.replies.length > 0) {
+        return {
+          ...comment,
+          replies: updateCommentRecursive(comment.replies, commentId, updater),
+        };
+      }
+      return comment;
+    });
   };
 
+  // Add reply to a comment
+  const addReplyRecursive = (
+    comments: Comment[],
+    parentId: string,
+    newReply: Comment
+  ): Comment[] => {
+    return comments.map((comment) => {
+      if (comment.id === parentId) {
+        return {
+          ...comment,
+          replies: [...(comment.replies || []), newReply],
+        };
+      }
+      if (comment.replies && comment.replies.length > 0) {
+        return {
+          ...comment,
+          replies: addReplyRecursive(comment.replies, parentId, newReply),
+        };
+      }
+      return comment;
+    });
+  };
+
+  // Sort comments
+  const sortedComments = useMemo(() => {
+    let sorted = [...comments];
+
+    switch (sortBy) {
+      case 'best':
+        sorted.sort((a, b) => (b.upvotes - b.downvotes) - (a.upvotes - a.downvotes));
+        break;
+      case 'latest':
+        sorted.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+        break;
+      case 'oldest':
+        sorted.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
+        break;
+    }
+
+    return sorted;
+  }, [comments, sortBy]);
+
+  const handleUpvote = (commentId: string) => {
+    setComments((prev) =>
+      updateCommentRecursive(prev, commentId, (comment) => {
+        if (comment.isUpvoted) {
+          return { ...comment, upvotes: comment.upvotes - 1, isUpvoted: false };
+        } else {
+          return {
+            ...comment,
+            upvotes: comment.upvotes + 1,
+            downvotes: comment.isDownvoted ? comment.downvotes - 1 : comment.downvotes,
+            isUpvoted: true,
+            isDownvoted: false,
+          };
+        }
+      })
+    );
+  };
+
+  const handleDownvote = (commentId: string) => {
+    setComments((prev) =>
+      updateCommentRecursive(prev, commentId, (comment) => {
+        if (comment.isDownvoted) {
+          return { ...comment, downvotes: comment.downvotes - 1, isDownvoted: false };
+        } else {
+          return {
+            ...comment,
+            downvotes: comment.downvotes + 1,
+            upvotes: comment.isUpvoted ? comment.upvotes - 1 : comment.upvotes,
+            isDownvoted: true,
+            isUpvoted: false,
+          };
+        }
+      })
+    );
+  };
+
+  const handleReply = (parentCommentId: string, content: string) => {
+    const newReply: Comment = {
+      id: `comment-${Date.now()}`,
+      postId,
+      userId: 'current-user',
+      username: 'You',
+      userAvatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=current',
+      userReputation: 150,
+      content,
+      upvotes: 0,
+      downvotes: 0,
+      isUpvoted: false,
+      isDownvoted: false,
+      createdAt: new Date(),
+      replies: [],
+    };
+
+    setComments((prev) => addReplyRecursive(prev, parentCommentId, newReply));
+    showToast('Reply posted successfully', 'success');
+  };
+
+  const handleAddComment = () => {
+    if (!newComment.trim()) {
+      showToast('Please write a comment', 'error');
+      return;
+    }
+
+    const comment: Comment = {
+      id: `comment-${Date.now()}`,
+      postId,
+      userId: 'current-user',
+      username: 'You',
+      userAvatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=current',
+      userReputation: 150,
+      content: newComment,
+      upvotes: 0,
+      downvotes: 0,
+      isUpvoted: false,
+      isDownvoted: false,
+      createdAt: new Date(),
+      replies: [],
+    };
+
+    setComments((prev) => [comment, ...prev]);
+    setNewComment('');
+    showToast('Comment posted successfully', 'success');
+  };
+
+  const totalComments = useMemo(() => {
+    const countComments = (comments: Comment[]): number => {
+      return comments.reduce((total, comment) => {
+        return total + 1 + (comment.replies ? countComments(comment.replies) : 0);
+      }, 0);
+    };
+    return countComments(comments);
+  }, [comments]);
+
   return (
-    <div className="card">
-      <h3 className="text-lg font-semibold text-gray-900 mb-6">
-        Comments ({comments.length})
-      </h3>
-
-      {/* Add Comment Form */}
-      <form onSubmit={handleSubmit} className="mb-6">
-        <textarea
-          value={newComment}
-          onChange={(e) => setNewComment(e.target.value)}
-          placeholder="Add a comment..."
-          rows={3}
-          className="input resize-none"
-        />
-        <div className="flex justify-end mt-2">
-          <button type="submit" className="btn-primary" disabled={!newComment.trim()}>
-            Post Comment
-          </button>
-        </div>
-      </form>
-
-      {/* Comments List */}
-      {isLoading ? (
-        <div className="space-y-4">
-          {[...Array(3)].map((_, i) => (
-            <div key={i} className="animate-pulse">
-              <div className="flex items-start gap-3">
-                <div className="w-10 h-10 bg-gray-200 rounded-full" />
-                <div className="flex-1">
-                  <div className="bg-gray-200 h-4 w-24 rounded mb-2" />
-                  <div className="bg-gray-200 h-3 w-full rounded mb-1" />
-                  <div className="bg-gray-200 h-3 w-3/4 rounded" />
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      ) : comments.length === 0 ? (
-        <div className="text-center py-8 text-gray-500">
-          No comments yet. Be the first to comment!
-        </div>
-      ) : (
-        <div className="space-y-6">
-          {comments.map((comment) => (
-            <CommentItem key={comment.id} comment={comment} />
-          ))}
-        </div>
-      )}
-    </div>
-  );
-};
-
-const CommentItem = ({ comment }: { comment: Comment }) => {
-  const [showReplies, setShowReplies] = useState(false);
-
-  return (
-    <div className="flex items-start gap-3">
-      {comment.userAvatar ? (
-        <img
-          src={comment.userAvatar}
-          alt={comment.username}
-          className="w-10 h-10 rounded-full"
-        />
-      ) : (
-        <div className="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center text-primary-700 font-semibold text-sm">
-          {getInitials(comment.username)}
-        </div>
-      )}
-
-      <div className="flex-1">
-        <div className="bg-gray-50 rounded-lg px-4 py-3">
-          <div className="flex items-center gap-2 mb-2">
-            <span className="font-medium text-gray-900">{comment.username}</span>
-            <span className="text-sm text-gray-500">
-              {formatRelativeTime(comment.createdAt)}
-            </span>
-          </div>
-          <p className="text-gray-700">{comment.content}</p>
-        </div>
-
-        {/* Comment Actions */}
-        <div className="flex items-center gap-4 mt-2 text-sm">
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="flex items-center justify-between">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+          Comments ({totalComments})
+        </h3>
+        <div className="flex gap-2">
           <button
-            className={`flex items-center gap-1 hover:text-primary-600 transition-colors ${
-              comment.isLiked ? 'text-primary-600' : 'text-gray-500'
+            onClick={() => setSortBy('best')}
+            className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+              sortBy === 'best'
+                ? 'bg-primary-600 text-white'
+                : 'bg-gray-100 dark:bg-secondary-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-secondary-600'
             }`}
           >
-            <svg
-              className={`w-4 h-4 ${comment.isLiked ? 'fill-current' : ''}`}
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5"
-              />
-            </svg>
-            <span>{comment.likes}</span>
+            Best
           </button>
-
-          <button className="text-gray-500 hover:text-primary-600 transition-colors">
-            Reply
+          <button
+            onClick={() => setSortBy('latest')}
+            className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+              sortBy === 'latest'
+                ? 'bg-primary-600 text-white'
+                : 'bg-gray-100 dark:bg-secondary-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-secondary-600'
+            }`}
+          >
+            Latest
           </button>
-
-          {comment.replies && comment.replies.length > 0 && (
-            <button
-              onClick={() => setShowReplies(!showReplies)}
-              className="text-gray-500 hover:text-primary-600 transition-colors"
-            >
-              {showReplies ? 'Hide' : 'Show'} {comment.replies.length} replies
-            </button>
-          )}
+          <button
+            onClick={() => setSortBy('oldest')}
+            className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+              sortBy === 'oldest'
+                ? 'bg-primary-600 text-white'
+                : 'bg-gray-100 dark:bg-secondary-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-secondary-600'
+            }`}
+          >
+            Oldest
+          </button>
         </div>
+      </div>
 
-        {/* Replies */}
-        {showReplies && comment.replies && comment.replies.length > 0 && (
-          <div className="mt-4 space-y-4 pl-6 border-l-2 border-gray-200">
-            {comment.replies.map((reply) => (
-              <CommentItem key={reply.id} comment={reply} />
+      {/* Add Comment */}
+      <div className="card">
+        <div className="flex gap-3">
+          <img
+            src="https://api.dicebear.com/7.x/avataaars/svg?seed=current"
+            alt="Your avatar"
+            className="w-10 h-10 rounded-full flex-shrink-0"
+          />
+          <div className="flex-1 space-y-3">
+            <textarea
+              value={newComment}
+              onChange={(e) => setNewComment(e.target.value)}
+              placeholder="What are your thoughts?"
+              className="input w-full resize-none"
+              rows={3}
+            />
+            <div className="flex justify-end gap-2">
+              <button
+                onClick={() => setNewComment('')}
+                className="btn-secondary text-sm"
+                disabled={!newComment.trim()}
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleAddComment}
+                className="btn-primary text-sm"
+                disabled={!newComment.trim()}
+              >
+                Comment
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Comments List */}
+      <div className="space-y-2">
+        {sortedComments.length === 0 ? (
+          <div className="card text-center py-12">
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-gray-100 dark:bg-secondary-700 rounded-full mb-4">
+              <svg className="w-8 h-8 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+              </svg>
+            </div>
+            <h4 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">
+              No comments yet
+            </h4>
+            <p className="text-gray-600 dark:text-gray-400">
+              Be the first to share your thoughts!
+            </p>
+          </div>
+        ) : (
+          <div className="card divide-y divide-gray-200 dark:divide-secondary-700">
+            {sortedComments.map((comment) => (
+              <CommentItem
+                key={comment.id}
+                comment={comment}
+                onUpvote={handleUpvote}
+                onDownvote={handleDownvote}
+                onReply={handleReply}
+                depth={0}
+              />
             ))}
           </div>
         )}

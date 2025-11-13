@@ -17,6 +17,7 @@ import News from '@/pages/News';
 import Calendar from '@/pages/Calendar';
 import Alerts from '@/pages/Alerts';
 import Community from '@/pages/Community';
+import PostDetail from '@/pages/PostDetail';
 import Settings from '@/pages/Settings';
 
 // Create a client
@@ -63,6 +64,7 @@ function App() {
                   <Route path="/calendar" element={<Calendar />} />
                   <Route path="/alerts" element={<Alerts />} />
                   <Route path="/community" element={<Community />} />
+                  <Route path="/community/:postId" element={<PostDetail />} />
                   <Route path="/settings" element={<Settings />} />
                 </Routes>
               </div>

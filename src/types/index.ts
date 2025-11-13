@@ -154,15 +154,19 @@ export interface Post {
   userId: string;
   username: string;
   userAvatar?: string;
+  userReputation?: number;
   title: string;
   content: string;
   category: PostCategory;
   tags: string[];
-  likes: number;
+  upvotes: number;
+  downvotes: number;
   comments: number;
   views: number;
-  isLiked?: boolean;
+  isUpvoted?: boolean;
+  isDownvoted?: boolean;
   isBookmarked?: boolean;
+  imageUrl?: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -171,8 +175,7 @@ export type PostCategory =
   | 'discussion'
   | 'analysis'
   | 'question'
-  | 'news'
-  | 'education';
+  | 'news';
 
 export interface Comment {
   id: string;
@@ -180,11 +183,28 @@ export interface Comment {
   userId: string;
   username: string;
   userAvatar?: string;
+  userReputation?: number;
   content: string;
-  likes: number;
-  isLiked?: boolean;
+  upvotes: number;
+  downvotes: number;
+  isUpvoted?: boolean;
+  isDownvoted?: boolean;
   createdAt: Date;
   replies?: Comment[];
+}
+
+export interface UserProfile {
+  id: string;
+  username: string;
+  avatar?: string;
+  bio?: string;
+  reputation: number;
+  postsCount: number;
+  commentsCount: number;
+  followers: number;
+  following: number;
+  joinedAt: Date;
+  isFollowing?: boolean;
 }
 
 // API Response types
