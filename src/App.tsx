@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useAppStore } from '@/store';
@@ -26,12 +27,22 @@ const queryClient = new QueryClient({
 });
 
 function App() {
-  const { isSidebarOpen } = useAppStore();
+  const { isSidebarOpen, theme } = useAppStore();
+
+  // Apply theme to document root
+  useEffect(() => {
+    const root = document.documentElement;
+    if (theme === 'dark') {
+      root.classList.add('dark');
+    } else {
+      root.classList.remove('dark');
+    }
+  }, [theme]);
 
   return (
     <QueryClientProvider client={queryClient}>
       <Router>
-        <div className="min-h-screen flex flex-col bg-gray-50">
+        <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-secondary-900 transition-colors duration-300">
           <Header />
 
           <div className="flex flex-1">
@@ -39,7 +50,7 @@ function App() {
 
             <main
               className={`flex-1 transition-all duration-300 ${
-                isSidebarOpen ? 'lg:ml-64' : 'ml-0'
+                isSidebarOpen ? 'lg:ml-72' : 'ml-0'
               }`}
             >
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
