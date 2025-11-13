@@ -1,0 +1,16 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+
+# Disallow admin/private pages
+Disallow: /api/
+Disallow: /admin/
+Disallow: /settings/
+
+# Allow search engines to crawl important pages
+Allow: /news/
+Allow: /calendar/
+Allow: /community/
+
+# Sitemap
+Sitemap: https://yourapp.com/sitemap.xml
