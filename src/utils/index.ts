@@ -132,3 +132,59 @@ export const getInitials = (name: string): string => {
 export const sleep = (ms: number): Promise<void> => {
   return new Promise((resolve) => setTimeout(resolve, ms));
 };
+
+// Export new utility modules (selective exports to avoid conflicts)
+
+// Date/Time utilities
+export {
+  formatMarketTime,
+  formatShortDate,
+  formatFullDate,
+  isMarketOpen,
+  getNextMarketOpen,
+  getNextMarketClose,
+  getMarketHours,
+  formatTimeUntil,
+  getStartOfDay,
+  getEndOfDay,
+  addDays,
+  isSameDay,
+  isToday,
+  isPast,
+  isFuture,
+} from './dateTime';
+export type { MarketHours } from './dateTime';
+
+// Formatters (excluding formatNumber which is already defined in this file)
+export {
+  formatPrice,
+  formatPercent,
+  formatLargeNumber,
+  formatStockPrice,
+  formatVolume,
+  formatMarketCap,
+  formatChange,
+  formatBytes,
+  parseFormattedNumber,
+  formatRatio,
+  formatBasisPoints,
+  truncateString,
+  formatDuration,
+  getOrdinalSuffix,
+} from './formatters';
+
+// Mock Dashboard Data (excluding isMarketOpen which is in dateTime)
+export {
+  generateMarketIndices,
+  generateFearGreedIndex,
+  generateTrendingTickers,
+  generateQuickStats,
+  getMarketTimeInfo,
+} from './mockDashboardData';
+export type { MarketIndex, TrendingTicker, QuickStat } from './mockDashboardData';
+
+// Mock Community Data (only posts, not comments)
+export { generateMockPosts } from './mockCommunityData';
+
+// Mock Comment Data (main source for comments)
+export { generateMockComments } from './mockCommentData';
