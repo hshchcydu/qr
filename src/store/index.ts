@@ -79,6 +79,7 @@ interface AppState {
   // Theme state
   theme: 'light' | 'dark';
   toggleTheme: () => void;
+  setTheme: (theme: 'light' | 'dark') => void;
 }
 
 export const useAppStore = create<AppState>()(
@@ -234,6 +235,7 @@ export const useAppStore = create<AppState>()(
       theme: 'light',
       toggleTheme: () =>
         set((state) => ({ theme: state.theme === 'light' ? 'dark' : 'light' })),
+      setTheme: (theme) => set({ theme }),
     }),
     {
       name: 'investment-news-storage',

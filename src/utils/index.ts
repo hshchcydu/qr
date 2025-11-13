@@ -188,3 +188,6 @@ export { generateMockPosts } from './mockCommunityData';
 
 // Mock Comment Data (main source for comments)
 export { generateMockComments } from './mockCommentData';
+
+// Export utilities
+export * from './exportUtils';
