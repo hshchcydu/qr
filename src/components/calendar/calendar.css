@@ -1,0 +1,162 @@
+/* Calendar custom styles for dark mode support */
+
+.calendar-wrapper .rbc-calendar {
+  font-family: inherit;
+}
+
+/* Header */
+.calendar-wrapper .rbc-header {
+  @apply text-gray-700 dark:text-gray-300 font-semibold text-sm py-3 border-b border-gray-200 dark:border-secondary-700;
+}
+
+/* Today highlight */
+.calendar-wrapper .rbc-today {
+  @apply bg-primary-50 dark:bg-primary-900/20;
+}
+
+/* Off range (dates from other months) */
+.calendar-wrapper .rbc-off-range {
+  @apply text-gray-400 dark:text-gray-600;
+}
+
+.calendar-wrapper .rbc-off-range-bg {
+  @apply bg-gray-50 dark:bg-secondary-900;
+}
+
+/* Month view */
+.calendar-wrapper .rbc-month-view {
+  @apply border border-gray-200 dark:border-secondary-700 rounded-lg overflow-hidden;
+}
+
+.calendar-wrapper .rbc-month-row {
+  @apply border-b border-gray-200 dark:border-secondary-700;
+}
+
+.calendar-wrapper .rbc-day-bg {
+  @apply border-r border-gray-200 dark:border-secondary-700;
+}
+
+.calendar-wrapper .rbc-date-cell {
+  @apply text-gray-900 dark:text-gray-100 p-1;
+}
+
+/* Week and Day views */
+.calendar-wrapper .rbc-time-view {
+  @apply border border-gray-200 dark:border-secondary-700 rounded-lg;
+}
+
+.calendar-wrapper .rbc-time-header {
+  @apply border-b border-gray-200 dark:border-secondary-700;
+}
+
+.calendar-wrapper .rbc-time-content {
+  @apply border-t border-gray-200 dark:border-secondary-700;
+}
+
+.calendar-wrapper .rbc-time-slot {
+  @apply border-t border-gray-100 dark:border-secondary-800;
+}
+
+.calendar-wrapper .rbc-current-time-indicator {
+  @apply bg-primary-600;
+}
+
+.calendar-wrapper .rbc-timeslot-group {
+  @apply border-b border-gray-200 dark:border-secondary-700;
+}
+
+.calendar-wrapper .rbc-day-slot .rbc-time-slot {
+  @apply border-t border-gray-100 dark:border-secondary-800;
+}
+
+/* Time gutter */
+.calendar-wrapper .rbc-time-gutter {
+  @apply text-gray-600 dark:text-gray-400 text-xs;
+}
+
+.calendar-wrapper .rbc-label {
+  @apply text-gray-600 dark:text-gray-400;
+}
+
+/* Events */
+.calendar-wrapper .rbc-event {
+  @apply rounded-md;
+}
+
+.calendar-wrapper .rbc-event:focus {
+  @apply outline-none ring-2 ring-primary-500;
+}
+
+.calendar-wrapper .rbc-selected {
+  @apply bg-primary-600;
+}
+
+/* Show more button */
+.calendar-wrapper .rbc-show-more {
+  @apply text-primary-600 dark:text-primary-400 text-xs font-medium hover:underline;
+}
+
+/* Agenda view */
+.calendar-wrapper .rbc-agenda-view {
+  @apply border border-gray-200 dark:border-secondary-700 rounded-lg;
+}
+
+.calendar-wrapper .rbc-agenda-table {
+  @apply border-separate border-spacing-0;
+}
+
+.calendar-wrapper .rbc-agenda-date-cell,
+.calendar-wrapper .rbc-agenda-time-cell {
+  @apply text-gray-600 dark:text-gray-400 p-3 border-b border-gray-200 dark:border-secondary-700;
+}
+
+.calendar-wrapper .rbc-agenda-event-cell {
+  @apply text-gray-900 dark:text-gray-100 p-3 border-b border-gray-200 dark:border-secondary-700;
+}
+
+/* Popup */
+.calendar-wrapper .rbc-overlay {
+  @apply bg-white dark:bg-secondary-800 border border-gray-200 dark:border-secondary-700 rounded-lg shadow-lg p-2;
+}
+
+.calendar-wrapper .rbc-overlay-header {
+  @apply border-b border-gray-200 dark:border-secondary-700 pb-2 mb-2 text-gray-900 dark:text-gray-100;
+}
+
+/* Buttons */
+.calendar-wrapper .rbc-toolbar button {
+  @apply text-gray-700 dark:text-gray-300;
+}
+
+.calendar-wrapper .rbc-toolbar button:hover {
+  @apply text-gray-900 dark:text-gray-100;
+}
+
+.calendar-wrapper .rbc-toolbar button:active,
+.calendar-wrapper .rbc-toolbar button.rbc-active {
+  @apply bg-primary-600 text-white;
+}
+
+/* Week and day view columns */
+.calendar-wrapper .rbc-time-header-content {
+  @apply border-l border-gray-200 dark:border-secondary-700;
+}
+
+.calendar-wrapper .rbc-time-column {
+  @apply border-l border-gray-200 dark:border-secondary-700;
+}
+
+/* Allday events */
+.calendar-wrapper .rbc-allday-cell {
+  @apply border-b border-gray-200 dark:border-secondary-700;
+}
+
+/* Selection */
+.calendar-wrapper .rbc-slot-selection {
+  @apply bg-primary-100 dark:bg-primary-900/30;
+}
+
+/* Row segments */
+.calendar-wrapper .rbc-row-segment {
+  @apply px-1;
+}

@@ -1,156 +1,166 @@
-import { useState } from 'react';
-import { format, startOfMonth, endOfMonth, eachDayOfInterval, isSameMonth, isToday, isSameDay } from 'date-fns';
+import { useState, useCallback } from 'react';
+import { Calendar as BigCalendar, momentLocalizer, View, Views } from 'react-big-calendar';
+import moment from 'moment';
 import type { CalendarEvent } from '@/types';
+import { getEventTypeColor } from '@/utils/mockCalendarEvents';
+import 'react-big-calendar/lib/css/react-big-calendar.css';
+import './calendar.css';
 
-interface CalendarProps {
+const localizer = momentLocalizer(moment);
+
+interface CalendarComponentProps {
   events: CalendarEvent[];
-  onDateSelect?: (date: Date) => void;
+  onSelectEvent?: (event: CalendarEvent) => void;
+  onEventHover?: (event: CalendarEvent | null) => void;
 }
 
-const Calendar = ({ events, onDateSelect }: CalendarProps) => {
-  const [currentMonth, setCurrentMonth] = useState(new Date());
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+const CalendarComponent = ({ events, onSelectEvent, onEventHover }: CalendarComponentProps) => {
+  const [view, setView] = useState<View>(Views.MONTH);
+  const [date, setDate] = useState(new Date());
 
-  const monthStart = startOfMonth(currentMonth);
-  const monthEnd = endOfMonth(currentMonth);
-  const days = eachDayOfInterval({ start: monthStart, end: monthEnd });
+  // Custom event style getter
+  const eventStyleGetter = useCallback(() => {
+    return {
+      style: {
+        backgroundColor: 'transparent',
+        border: 'none',
+        padding: '2px 4px',
+      },
+    };
+  }, []);
 
-  const handleDateClick = (date: Date) => {
-    setSelectedDate(date);
-    onDateSelect?.(date);
+  // Custom event component
+  const EventComponent = ({ event }: { event: CalendarEvent }) => {
+    const colors = getEventTypeColor(event.type);
+
+    return (
+      <div
+        className={`flex items-center gap-1 px-2 py-1 rounded ${colors.bg} ${colors.text} text-xs font-medium overflow-hidden cursor-pointer hover:opacity-80 transition-opacity`}
+        onMouseEnter={() => onEventHover?.(event)}
+        onMouseLeave={() => onEventHover?.(null)}
+      >
+        <span className="text-sm">{colors.icon}</span>
+        <span className="truncate flex-1">{event.title}</span>
+        {event.importance === 'high' && (
+          <span className="text-xs">🔴</span>
+        )}
+      </div>
+    );
   };
 
-  const getEventsForDate = (date: Date) => {
-    return events.filter((event) => isSameDay(new Date(event.date), date));
-  };
+  // Custom toolbar
+  const CustomToolbar = (toolbar: any) => {
+    const goToBack = () => {
+      toolbar.onNavigate('PREV');
+    };
 
-  const nextMonth = () => {
-    setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1));
-  };
+    const goToNext = () => {
+      toolbar.onNavigate('NEXT');
+    };
 
-  const prevMonth = () => {
-    setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1));
+    const goToToday = () => {
+      toolbar.onNavigate('TODAY');
+    };
+
+    const label = () => {
+      const date = moment(toolbar.date);
+      return (
+        <span className="text-xl font-bold text-gray-900 dark:text-gray-100">
+          {date.format('MMMM YYYY')}
+        </span>
+      );
+    };
+
+    return (
+      <div className="flex items-center justify-between mb-6 flex-wrap gap-4">
+        <div className="flex items-center gap-2">
+          <button
+            onClick={goToToday}
+            className="btn-secondary text-sm"
+          >
+            Today
+          </button>
+          <div className="flex items-center gap-1">
+            <button
+              onClick={goToBack}
+              className="p-2 rounded-lg bg-gray-100 dark:bg-secondary-700 hover:bg-gray-200 dark:hover:bg-secondary-600 transition-colors"
+            >
+              <svg className="w-5 h-5 text-gray-700 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+            <button
+              onClick={goToNext}
+              className="p-2 rounded-lg bg-gray-100 dark:bg-secondary-700 hover:bg-gray-200 dark:hover:bg-secondary-600 transition-colors"
+            >
+              <svg className="w-5 h-5 text-gray-700 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
+          {label()}
+        </div>
+
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => setView(Views.MONTH)}
+            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+              view === Views.MONTH
+                ? 'bg-primary-600 text-white'
+                : 'bg-gray-100 dark:bg-secondary-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-secondary-600'
+            }`}
+          >
+            Month
+          </button>
+          <button
+            onClick={() => setView(Views.WEEK)}
+            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+              view === Views.WEEK
+                ? 'bg-primary-600 text-white'
+                : 'bg-gray-100 dark:bg-secondary-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-secondary-600'
+            }`}
+          >
+            Week
+          </button>
+          <button
+            onClick={() => setView(Views.DAY)}
+            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+              view === Views.DAY
+                ? 'bg-primary-600 text-white'
+                : 'bg-gray-100 dark:bg-secondary-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-secondary-600'
+            }`}
+          >
+            Day
+          </button>
+        </div>
+      </div>
+    );
   };
 
   return (
-    <div className="card">
-      {/* Calendar Header */}
-      <div className="flex items-center justify-between mb-6">
-        <h2 className="text-xl font-bold text-gray-900">
-          {format(currentMonth, 'MMMM yyyy')}
-        </h2>
-        <div className="flex gap-2">
-          <button
-            onClick={prevMonth}
-            className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
-          >
-            <svg
-              className="w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M15 19l-7-7 7-7"
-              />
-            </svg>
-          </button>
-          <button
-            onClick={nextMonth}
-            className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
-          >
-            <svg
-              className="w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M9 5l7 7-7 7"
-              />
-            </svg>
-          </button>
-        </div>
-      </div>
-
-      {/* Day headers */}
-      <div className="grid grid-cols-7 gap-2 mb-2">
-        {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
-          <div
-            key={day}
-            className="text-center text-xs font-semibold text-gray-600 py-2"
-          >
-            {day}
-          </div>
-        ))}
-      </div>
-
-      {/* Calendar days */}
-      <div className="grid grid-cols-7 gap-2">
-        {days.map((day) => {
-          const dayEvents = getEventsForDate(day);
-          const isSelected = selectedDate && isSameDay(day, selectedDate);
-          const isCurrentDay = isToday(day);
-
-          return (
-            <button
-              key={day.toISOString()}
-              onClick={() => handleDateClick(day)}
-              className={`
-                relative min-h-[80px] p-2 rounded-lg border transition-all
-                ${isSelected ? 'bg-primary-50 border-primary-500' : 'border-gray-200 hover:border-gray-300'}
-                ${isCurrentDay ? 'ring-2 ring-primary-500' : ''}
-                ${!isSameMonth(day, currentMonth) ? 'opacity-40' : ''}
-              `}
-            >
-              <div className={`text-sm font-medium mb-1 ${isCurrentDay ? 'text-primary-600' : 'text-gray-900'}`}>
-                {format(day, 'd')}
-              </div>
-              {dayEvents.length > 0 && (
-                <div className="space-y-1">
-                  {dayEvents.slice(0, 2).map((event) => (
-                    <div
-                      key={event.id}
-                      className="text-xs truncate px-1 py-0.5 rounded bg-primary-100 text-primary-700"
-                    >
-                      {event.title}
-                    </div>
-                  ))}
-                  {dayEvents.length > 2 && (
-                    <div className="text-xs text-gray-500">
-                      +{dayEvents.length - 2} more
-                    </div>
-                  )}
-                </div>
-              )}
-            </button>
-          );
-        })}
-      </div>
-
-      {/* Legend */}
-      <div className="mt-6 flex items-center gap-4 text-sm">
-        <div className="flex items-center gap-2">
-          <div className="w-3 h-3 rounded-full bg-red-500" />
-          <span className="text-gray-600">High Impact</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <div className="w-3 h-3 rounded-full bg-yellow-500" />
-          <span className="text-gray-600">Medium Impact</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <div className="w-3 h-3 rounded-full bg-blue-500" />
-          <span className="text-gray-600">Low Impact</span>
-        </div>
-      </div>
+    <div className="calendar-wrapper bg-white dark:bg-secondary-800 rounded-xl p-6 shadow-soft dark:shadow-none dark:border dark:border-secondary-700">
+      <BigCalendar
+        localizer={localizer}
+        events={events}
+        startAccessor="start"
+        endAccessor="end"
+        view={view}
+        onView={setView}
+        date={date}
+        onNavigate={setDate}
+        style={{ height: 700 }}
+        eventPropGetter={eventStyleGetter}
+        onSelectEvent={onSelectEvent}
+        components={{
+          event: EventComponent,
+          toolbar: CustomToolbar,
+        }}
+        views={[Views.MONTH, Views.WEEK, Views.DAY]}
+        popup
+        selectable
+      />
     </div>
   );
 };
 
-export default Calendar;
+export default CalendarComponent;

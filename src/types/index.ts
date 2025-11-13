@@ -47,23 +47,23 @@ export interface CalendarEvent {
   id: string;
   title: string;
   description: string;
-  eventType: EventType;
-  date: Date;
-  time?: string;
-  impact: 'high' | 'medium' | 'low';
-  country?: string;
-  actual?: string;
-  forecast?: string;
+  type: 'economic' | 'fed' | 'earnings' | 'announcement';
+  start: Date;
+  end: Date;
+  importance: 'high' | 'medium' | 'low';
   previous?: string;
+  expected?: string;
+  actual?: string;
+  source?: string;
+  relatedTickers?: string[];
+  isAlert: boolean;
 }
 
 export type EventType =
+  | 'economic'
+  | 'fed'
   | 'earnings'
-  | 'economic-data'
-  | 'fed-meeting'
-  | 'ipo'
-  | 'dividend'
-  | 'conference';
+  | 'announcement';
 
 // Alert types
 export interface Alert {
