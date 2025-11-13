@@ -8,6 +8,9 @@ import Header from '@/components/layout/Header';
 import Sidebar from '@/components/layout/Sidebar';
 import Footer from '@/components/layout/Footer';
 
+// Common Components
+import Toast from '@/components/common/Toast';
+
 // Pages
 import Home from '@/pages/Home';
 import News from '@/pages/News';
@@ -68,6 +71,9 @@ function App() {
 
           <Footer />
         </div>
+
+        {/* Toast Notifications */}
+        <Toast />
       </Router>
     </QueryClientProvider>
   );

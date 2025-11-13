@@ -88,6 +88,66 @@ export interface AlertCondition {
 export type AlertFrequency = 'realtime' | 'hourly' | 'daily';
 export type AlertChannel = 'email' | 'push' | 'sms';
 
+// Keyword Alert
+export interface KeywordAlert {
+  id: string;
+  keyword: string;
+  isActive: boolean;
+  channels: AlertChannel[];
+  createdAt: Date;
+}
+
+// Stock Alert
+export interface StockAlert {
+  id: string;
+  symbol: string;
+  companyName: string;
+  type: 'price' | 'percentage' | 'volume' | 'earnings' | 'news';
+  condition?: {
+    operator: 'above' | 'below';
+    value: number;
+  };
+  isActive: boolean;
+  channels: AlertChannel[];
+  createdAt: Date;
+}
+
+// Economic Indicator Alert
+export interface EconomicIndicatorAlert {
+  id: string;
+  indicator: string;
+  timing: 'before' | 'at';
+  minutesBefore?: number;
+  isActive: boolean;
+  channels: AlertChannel[];
+  createdAt: Date;
+}
+
+// Schedule Alert
+export interface ScheduleAlert {
+  id: string;
+  type: 'daily-open' | 'daily-close' | 'weekly-review' | 'monthly-calendar';
+  time?: string;
+  dayOfWeek?: number;
+  dayOfMonth?: number;
+  isActive: boolean;
+  channels: AlertChannel[];
+  createdAt: Date;
+}
+
+// Alert History
+export interface AlertHistoryItem {
+  id: string;
+  alertId: string;
+  alertType: 'keyword' | 'stock' | 'economic' | 'schedule';
+  title: string;
+  message: string;
+  isRead: boolean;
+  isArchived: boolean;
+  triggeredAt: Date;
+  data?: any;
+}
+
 // Community types
 export interface Post {
   id: string;
